@@ -7,18 +7,24 @@ nyckelord).
 ## Status just nu
 
 Alla 27 handlare från [Kellofoorumis lista](https://kellofoorumi.fi/uutiset/kaytettyjen-kellojen-kauppiaat-suomessa/)
-har gåtts igenom och verifierats direkt mot deras servrar. 21 butiker är
-konfigurerade och testkörda (`python -m klockvakt.main`, flera körningar för
-att bekräfta att dedup fungerar), inga krascher.
+har gåtts igenom och verifierats direkt mot deras servrar. **Alla 21
+medtagna butiker har en riktig parser** – ingen använder längre
+"sidan ändrades"-stopgapet. Testkört (`python -m klockvakt.main`, flera
+körningar för att bekräfta att dedup fungerar), inga krascher.
 
 | Plattform | Antal | Hur det funkar |
 |---|---|---|
-| `shopify` | 2 | Läser butikens `/products.json` – stabilt, ingen CSS inblandad |
-| `woocommerce_api` | 8 | Läser WooCommerce **Store API** (`/wp-json/wc/store/v1/products`) – strukturerad JSON istället för att gissa CSS-klasser |
+| `shopify` | 2 | Läser butikens `/products.json` |
+| `woocommerce_api` | 8 | WooCommerce **Store API** (`/wp-json/wc/store/v1/products`) |
+| `magento` | 1 (Kulta-Center) | Magentos GA-spårningsattribut (`data-id`/`data-name`/`data-price`) inbäddade på varje produktlänk, med automatisk paginering |
+| `wix` | 1 (Kellotupa) | `/store-products-sitemap.xml` + schema.org Product-JSON (`application/ld+json`) på varje produktsida |
+| `webflow` | 3 (Sörkan Kello, Gello, ChronoX) | Statisk HTML från Webflows CMS Collection Lists (`w-dyn-item`), ofta med Finsweet CMS Filter-attribut för pris |
+| `webador` | 2 (Aikarauta, Aika & Aarre) | JSON inbäddad direkt i `data-webshop-product`-attributet på varje produktkort |
+| `kronometri` | 1 | Egen skrapare (Weebly) – läser titel+pris som textrader eftersom HTML-taggarna varierar mellan kort |
 | `takuukello` | 1 | Egen skrapare – statisk HTML (Breakdance page builder) |
-| `supabase` | 1 | Egen skrapare (Rolle Kellot) – frågar samma publika Supabase-API som sidan själv använder |
-| `squarespace` | 1 | Egen skrapare (Prime Time Kellot) – Squarespaces `?format=json`-API |
-| `custom_diff` | 8 | Stopgap – larmar bara "sidan ändrades", inte vad |
+| `supabase` | 1 (Rolle Kellot) | Frågar samma publika Supabase-API som sidan själv använder |
+| `squarespace` | 1 (Prime Time Kellot) | Squarespaces `?format=json`-API |
+| `custom_diff` | 0 | Kvar i koden som fallback om en framtida butik saknar strukturerad data |
 
 ### Butiker som INTE är medtagna
 
@@ -26,24 +32,24 @@ att bekräfta att dedup fungerar), inga krascher.
 |---|---|
 | Kellokonttori, Kelloneuvos, Helsingin Kello ja Kulta | Har redan egen "hakuvahti"/e-postbevakning inbyggd på sajten – prenumerera direkt hos dem istället, då slipper du underhålla en skrapare |
 | Timepiece Finland, Second Time | Säljer bara via Instagram – går inte att bevaka programmatiskt utan inloggning, och bryter mot Instagrams användarvillkor |
-| **Kelloholvi** | Sidans "butik" är i praktiken en inbäddad Instagram-flödes-widget (Smash Balloon-pluginet, hittades i sidans källkod) – de riktiga WooCommerce-produkterna finns men är satta till dold katalogsynlighet. Samma princip som Instagram-only-butikerna ovan: går inte att bevaka programmatiskt på ett sätt som känns rimligt |
+| Kelloholvi | Sidans "butik" är i praktiken en inbäddad Instagram-flödes-widget (Smash Balloon-pluginet, hittades i sidans källkod) – de riktiga WooCommerce-produkterna finns men är satta till dold katalogsynlighet. Samma princip som Instagram-only-butikerna ovan |
 | Oulun Arvokello | Har lagt ner sin kello-verksamhet (sidan bekräftar det explicit) |
 
-### Custom-plattformar utan egen parser (kvar som `custom_diff`)
+### Så hittades API:erna
 
-Kronometri, Kellotupa, Aika & Aarre, Sörkan Kello, Gello, Aikarauta, ChronoX,
-Kulta-Center – inget uppenbart strukturerat API hittades vid genomgången
-(Weebly/Wix/Webador/Webflow utan publikt API). Går att undersöka djupare
-efter samma metod som gav resultat för Rolle Kellot/Prime Time Kellot:
-kolla sidans källkod och nätverksflik i webbläsarens DevTools efter
-JSON-anrop, sitemap.xml för produktlänkar, eller `?format=json` för
-Squarespace-sajter.
+Samma metod för alla: läs sidans källkod (leta efter plattformsspår som
+`wp-json`, `wix-warmup-data`, `data-*`-attribut, `application/ld+json`),
+kolla `/sitemap.xml` för produktlänkar, och testa `?format=json` eller
+liknande dolda ändpunkter. Inget lösenordsskydd kringgicks någonstans –
+allt som används är exakt samma publika data som butikens egen hemsida
+redan laddar hem till besökarens webbläsare.
 
 ## Så funkar det
 
 - `config.json` – lista över butiker (`platform`: `shopify` /
-  `woocommerce_api` / `woocommerce` / `takuukello` / `supabase` /
-  `squarespace` / `custom_diff`) samt dina filterkriterier.
+  `woocommerce_api` / `woocommerce` / `magento` / `wix` / `webflow` /
+  `webador` / `kronometri` / `takuukello` / `supabase` / `squarespace` /
+  `custom_diff`) samt dina filterkriterier.
 - `klockvakt/scrapers.py` – en funktion per plattformstyp.
 - `klockvakt/filters.py` – matchar mot märke/pris/nyckelord.
 - `klockvakt/state.py` – kommer ihåg vilka annonser som redan är sedda
@@ -56,10 +62,10 @@ Squarespace-sajter.
 
 ## Testat lokalt
 
-Hela pipelinen (21 butiker) har körts två gånger i rad i den här miljön:
-första körningen gav 166 träffar som matchade filtren i `config.json`
-(Rolex/Omega/Tudor under 6000 €), andra körningen gav 0 nya träffar – dedup
-via `state/seen.json` fungerar. Inga krascher.
+Hela pipelinen (21 butiker, alla med riktiga parsers) har körts två gånger
+i rad i den här miljön: första körningen gav 124 träffar som matchade
+filtren i `config.json`, andra körningen gav 0 nya träffar – dedup via
+`state/seen.json` fungerar. Inga krascher.
 
 ## Kom igång lokalt (testa innan du deployar)
 
@@ -104,13 +110,14 @@ för att se att inget dubbelrapporteras.
    timeouta; det är redan hanterat (en trasig/långsam butik stoppar inte de
    andra), men om det blir ett återkommande problem kan sidstorleken sänkas
    från 100 till t.ex. 50.
-5. Undersök resterande `custom_diff`-butiker efter samma metod som gav
-   resultat för Rolle Kellot/Prime Time Kellot (se ovan).
+5. Kellotupa (`wix`) gör ett anrop per produkt (ingen samlings-API finns) –
+   fint för 33 produkter men skulle behöva justeras om katalogen växer
+   mycket (t.ex. cacha vilka produkt-URL:er som redan är kända oförändrade).
 
 ## Kända begränsningar
 
-- `custom_diff` ger dig bara "något ändrades", inte vilket objekt – bygg ut
-  den per butik i den takt du hinner (se prioritering ovan).
+- `custom_diff` (kvar i koden) ger dig bara "något ändrades", inte vilket
+  objekt – används inte av någon butik just nu men finns som fallback.
 - WooCommerce-selektorerna i den äldre CSS-baserade `woocommerce`-skrapan
   (kvar i koden som fallback) är generiska gissningar. Alla butiker som
   faktiskt konfigurerats i `config.json` använder istället `woocommerce_api`
@@ -121,3 +128,7 @@ för att se att inget dubbelrapporteras.
 - Vissa butikers Store API returnerar även sålda/slutsålda objekt (upptäckt
   hos Longitudi) – dessa filtreras bort via fältet `is_in_stock`, men om
   ytterligare butiker beter sig annorlunda kan liknande justeringar behövas.
+- De nya butiksspecifika skraparna (Kronometri, Webflow-butikerna,
+  Webador-butikerna) bygger på HTML-strukturer som butikerna kan ändra utan
+  förvarning eftersom de inte är ett publicerat API – om en av dem plötsligt
+  ger 0 träffar är första steget att kolla om sidans HTML har ändrats.

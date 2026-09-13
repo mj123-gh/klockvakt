@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import hashlib
 import html
+import json
 import re
 import time
 from typing import Any
@@ -365,6 +366,270 @@ def squarespace_products(shop: dict[str, Any]) -> list[dict[str, Any]]:
     return items
 
 
+def kronometri_products(shop: dict[str, Any]) -> list[dict[str, Any]]:
+    """
+    Kronometri är byggd i Weebly (fri drag-and-drop-editor) - HTML-taggarna
+    för titel varierar per produktkort (ibland <span style="font-weight:600">,
+    ibland <strong>), men textinnehållet i varje kort är konsekvent: "titel"
+    följt av "pris" på separata rader inuti .paragraph. Vi extraherar därför
+    via textrader istället för att lita på specifika taggar/klasser.
+    """
+    listing_url = shop["listing_url"]
+    base = shop["base_url"].rstrip("/")
+    soup = BeautifulSoup(_get(listing_url).text, "html.parser")
+
+    items: list[dict[str, Any]] = []
+    for card in soup.select("td.wsite-multicol-col"):
+        link_el = card.select_one("a[href]")
+        para = card.select_one(".paragraph")
+        if not link_el or not para:
+            continue
+        href = link_el["href"]
+        product_url = href if href.startswith("http") else f"{base}{href}"
+
+        lines = [line.strip() for line in para.get_text("\n").split("\n") if line.strip()]
+        if not lines:
+            continue
+        title = lines[0]
+        price = None
+        for line in lines[1:]:
+            price = _parse_price(line)
+            if price is not None:
+                break
+
+        img_el = card.select_one("img")
+        image = img_el.get("src") if img_el else None
+        if image and image.startswith("/"):
+            image = f"{base}{image}"
+
+        items.append(
+            {
+                "id": f"{shop['id']}:{product_url}",
+                "title": html.unescape(title),
+                "url": product_url,
+                "price_eur": price,
+                "image": image,
+            }
+        )
+    return items
+
+
+def webador_products(shop: dict[str, Any]) -> list[dict[str, Any]]:
+    """
+    Generisk skrapare för Webador-butiker (nederländskt namn: JouwWeb).
+    Varje produktkort har ett data-webshop-product-attribut med ren JSON
+    (id, titel, url, bild, lagersaldo per variant) - oavsett vilket av deras
+    kortdesign-teman butiken använder. Verifierat mot Aikarauta och
+    Aika & Aarre, som använder olika kort-CSS men samma dataattribut.
+    """
+    listing_url = shop["listing_url"]
+    base = shop["base_url"].rstrip("/")
+    soup = BeautifulSoup(_get(listing_url).text, "html.parser")
+
+    items: list[dict[str, Any]] = []
+    for card in soup.select("[data-webshop-product]"):
+        try:
+            data = json.loads(card["data-webshop-product"])
+        except (KeyError, ValueError):
+            continue
+
+        variants = data.get("variants") or []
+        # "limited": false betyder att lagersaldo inte spåras alls för den
+        # varianten (vanligt för unika begagnade klockor) - det betyder INTE
+        # slutsåld, bara att "stock" alltid står som 0. Räkna som tillgänglig
+        # om minst en variant antingen inte spåras eller har stock > 0.
+        in_stock = any(
+            not v.get("limited") or (v.get("stock") or 0) > 0 for v in variants
+        )
+        if not in_stock:
+            continue
+
+        price_el = card.select_one(".product-price__price")
+        price = _parse_price(price_el.get_text(strip=True)) if price_el else None
+
+        url_path = data.get("url") or ""
+        image = (data.get("image") or {}).get("url")
+
+        items.append(
+            {
+                "id": f"{shop['id']}:{data.get('id')}",
+                "title": html.unescape(data.get("title", "")),
+                "url": f"{base}{url_path}",
+                "price_eur": price,
+                "image": image,
+            }
+        )
+    return items
+
+
+def webflow_products(shop: dict[str, Any]) -> list[dict[str, Any]]:
+    """
+    Generisk skrapare för Webflow-butiker som använder CMS Collection Lists
+    (klassen "w-dyn-item"), renderade som statisk HTML - ingen JS-körning
+    behövs. Många använder även Finsweets CMS Filter-tillägg, som lägger
+    strukturerade "fs-cmsfilter-field"-attribut på fält som pris.
+
+    Sidor har ofta FLERA collection lists (t.ex. en filtreringsmeny och
+    själva produktlistan) - ange därför container_selector/price_selector
+    per butik i config.json om standardvärdena råkar träffa fel lista.
+    """
+    listing_url = shop["listing_url"]
+    base = shop["base_url"].rstrip("/")
+    container_sel = shop.get("container_selector", ".w-dyn-item")
+    title_sel = shop.get("title_selector", "h2")
+    price_sel = shop.get("price_selector", "[fs-cmsfilter-field='price']")
+
+    soup = BeautifulSoup(_get(listing_url).text, "html.parser")
+
+    items: list[dict[str, Any]] = []
+    for card in soup.select(container_sel):
+        link_el = card if card.name == "a" else card.select_one("a[href]")
+        if not link_el or not link_el.get("href"):
+            continue
+        href = link_el["href"]
+        product_url = href if href.startswith("http") else f"{base}{href}"
+
+        title = " ".join(
+            el.get_text(strip=True) for el in card.select(title_sel)
+        ).strip()
+
+        price_el = card.select_one(price_sel)
+        price = _parse_price(price_el.get_text(strip=True)) if price_el else None
+
+        img_el = card.select_one("img")
+        image = img_el.get("src") if img_el else None
+
+        items.append(
+            {
+                "id": f"{shop['id']}:{product_url}",
+                "title": html.unescape(title),
+                "url": product_url,
+                "price_eur": price,
+                "image": image,
+            }
+        )
+    return items
+
+
+def wix_products(shop: dict[str, Any]) -> list[dict[str, Any]]:
+    """
+    Generisk skrapare för Wix Stores-butiker. Wix listar alla produktsidor i
+    /store-products-sitemap.xml, och varje produktsida innehåller schema.org
+    Product-data (application/ld+json) med namn, pris och lagerstatus -
+    samma information sökmotorer läser. Kräver ett anrop per produkt (det
+    finns ingen publik samlings-API), så butiker med väldigt stora kataloger
+    kan bli långsamma - inget problem för en boutique-butik som Kellotupa.
+    """
+    base = shop["base_url"].rstrip("/")
+    sitemap = _get(f"{base}/store-products-sitemap.xml").text
+    urls = re.findall(r"<loc>(.*?)</loc>", sitemap)
+
+    items: list[dict[str, Any]] = []
+    for url in urls:
+        try:
+            page_html = _get(url).text
+        except requests.RequestException:
+            continue
+        m = re.search(
+            r'<script type="application/ld\+json">(.*?)</script>', page_html, re.S
+        )
+        if not m:
+            continue
+        try:
+            data = json.loads(m.group(1))
+        except ValueError:
+            continue
+
+        offers = data.get("offers") or {}
+        if isinstance(offers, list):
+            offers = offers[0] if offers else {}
+        if "InStock" not in str(offers.get("availability", "")):
+            continue
+
+        price = None
+        try:
+            price = float(offers.get("price"))
+        except (TypeError, ValueError):
+            price = None
+
+        images = data.get("image") or []
+        image = None
+        if isinstance(images, list) and images:
+            image = images[0].get("contentUrl")
+        elif isinstance(images, dict):
+            image = images.get("contentUrl")
+
+        items.append(
+            {
+                "id": f"{shop['id']}:{url}",
+                "title": html.unescape(data.get("name", "")),
+                "url": url,
+                "price_eur": price,
+                "image": image,
+            }
+        )
+    return items
+
+
+def magento_products(shop: dict[str, Any]) -> list[dict[str, Any]]:
+    """
+    Generisk skrapare för Magento-butiker. Magentos standardtema (Luma)
+    lägger Google Analytics-spårningsdata direkt som data-attribut på varje
+    produktlänk (data-id/data-name/data-price/data-quantity) - strukturerad
+    data helt utan att behöva tolka pristext. Paginerar via ?p=N tills en
+    sida inte ger några fler produkter.
+    """
+    listing_url = shop["listing_url"]
+    max_pages = 10  # skyddsnät
+
+    items: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    page = 1
+    while page <= max_pages:
+        url = listing_url if page == 1 else f"{listing_url}?p={page}"
+        soup = BeautifulSoup(_get(url).text, "html.parser")
+        links = soup.select("a.product-item-photo[data-id]")
+        if not links:
+            break
+
+        for a in links:
+            product_id = a.get("data-id")
+            if not product_id or product_id in seen_ids:
+                continue
+            seen_ids.add(product_id)
+
+            qty = a.get("data-quantity")
+            try:
+                if qty is not None and float(qty) <= 0:
+                    continue
+            except ValueError:
+                pass
+
+            price = None
+            raw_price = a.get("data-price")
+            if raw_price:
+                try:
+                    price = float(raw_price)
+                except ValueError:
+                    price = None
+
+            img_el = a.select_one("img")
+            image = img_el.get("src") if img_el else None
+
+            items.append(
+                {
+                    "id": f"{shop['id']}:{product_id}",
+                    "title": html.unescape(a.get("data-name", "")),
+                    "url": a.get("href", ""),
+                    "price_eur": price,
+                    "image": image,
+                }
+            )
+        page += 1
+
+    return items
+
+
 def custom_diff(shop: dict[str, Any]) -> list[dict[str, Any]]:
     """Stopgap: larma bara att sidan ändrats, utan att veta exakt vad."""
     page_text = _get(shop["listing_url"]).text
@@ -405,6 +670,11 @@ SCRAPERS = {
     "takuukello": takuukello_products,
     "supabase": supabase_products,
     "squarespace": squarespace_products,
+    "kronometri": kronometri_products,
+    "webador": webador_products,
+    "webflow": webflow_products,
+    "wix": wix_products,
+    "magento": magento_products,
     "custom_diff": custom_diff,
 }
 

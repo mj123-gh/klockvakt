@@ -78,57 +78,68 @@
     {
       "id": "kulta-center",
       "name": "Kulta-Center",
-      "platform": "custom_diff",
+      "platform": "magento",
+      "_kommentar": "Magento - data-id/data-name/data-price/data-quantity ligger inbäddat på varje produktlänk. Paginerar automatiskt (120 produkter / 40 per sida).",
+      "base_url": "https://www.kulta-center.com",
       "listing_url": "https://www.kulta-center.com/fi/pre-owned-kellot"
     },
     {
       "id": "kronometri",
       "name": "Kronometri",
-      "platform": "custom_diff",
-      "_kommentar": "Custom-plattform (troligen Weebly), ingen produkt-API hittad.",
-      "listing_url": "https://kronometri.fi"
+      "platform": "kronometri",
+      "_kommentar": "Weebly. Egen skrapare - läser titel+pris som textrader eftersom HTML-taggarna varierar mellan produktkort.",
+      "base_url": "https://www.kronometri.fi",
+      "listing_url": "https://www.kronometri.fi/myyntikellot.html"
     },
     {
       "id": "kellotupa",
       "name": "Kellotupa",
-      "platform": "custom_diff",
-      "_kommentar": "Wix-butik.",
-      "listing_url": "https://kellotupa.fi"
+      "platform": "wix",
+      "_kommentar": "Wix Stores - läser /store-products-sitemap.xml + schema.org Product-data (JSON-LD) på varje produktsida.",
+      "base_url": "https://www.kellotupa.fi"
     },
     {
       "id": "aikajaaarre",
       "name": "Aika & Aarre",
-      "platform": "custom_diff",
-      "_kommentar": "Webador-butik.",
-      "listing_url": "https://www.aikajaaarre.fi"
+      "platform": "webador",
+      "base_url": "https://www.aikajaaarre.fi",
+      "listing_url": "https://www.aikajaaarre.fi/arvokellot"
     },
     {
       "id": "sorkankello",
       "name": "Sörkan Kello",
-      "platform": "custom_diff",
-      "_kommentar": "Webflow-butik.",
-      "listing_url": "https://sorkankello.fi"
+      "platform": "webflow",
+      "_kommentar": "Sidan har flera Webflow-collections - container_selector pekar ut rätt (den med prisfält).",
+      "base_url": "https://www.sorkankello.fi",
+      "listing_url": "https://www.sorkankello.fi/valikoima",
+      "container_selector": ".collection-item-4",
+      "title_selector": "h2.kortinotsikko"
     },
     {
       "id": "gello",
       "name": "Gello",
-      "platform": "custom_diff",
-      "_kommentar": "Webflow, verkar sälja via direktkontakt snarare än riktig checkout.",
-      "listing_url": "https://gello.fi"
+      "platform": "webflow",
+      "_kommentar": "Egen collection + eget attributnamn för pris (fs-cmssort-field='hinta' istället för fs-cmsfilter-field='price'). Märke och modell står i separata rubriker.",
+      "base_url": "https://gello.fi",
+      "listing_url": "https://gello.fi",
+      "container_selector": ".collection-item-2",
+      "title_selector": "h3[fs-cmsfilter-field='valmistaja'], h3.c-title-3-copy",
+      "price_selector": "[fs-cmssort-field='hinta']"
     },
     {
       "id": "aikarauta",
       "name": "Aikarauta",
-      "platform": "custom_diff",
-      "_kommentar": "Webador-butik.",
-      "listing_url": "https://aikarauta.fi"
+      "platform": "webador",
+      "base_url": "https://www.aikarauta.fi",
+      "listing_url": "https://www.aikarauta.fi/kellot"
     },
     {
       "id": "chronox",
       "name": "ChronoX",
-      "platform": "custom_diff",
-      "_kommentar": "Rätt domän är chronoxkellot.fi (inte chronox.fi). Webflow-butik.",
-      "listing_url": "https://chronoxkellot.fi"
+      "platform": "webflow",
+      "_kommentar": "Rätt domän är chronoxkellot.fi (inte chronox.fi). Enda collection på startsidan, standardselektorerna räcker.",
+      "base_url": "https://www.chronoxkellot.fi",
+      "listing_url": "https://www.chronoxkellot.fi"
     },
     {
       "id": "takuukello",
