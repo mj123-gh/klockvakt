@@ -2,7 +2,8 @@
 
 Bevakar utvalda finska begagnatklockhandlare och skickar en Telegram-notis
 när ett nytt objekt dyker upp som matchar dina kriterier (märke, pris,
-nyckelord).
+nyckelord). Publicerar även en enkel webb-dashboard med alla aktuella
+matchningar via GitHub Pages.
 
 ## Status just nu
 
@@ -57,7 +58,10 @@ redan laddar hem till besökarens webbläsare.
 - `klockvakt/notify.py` – skickar Telegram-meddelande (skriver till
   terminalen om ingen bot är konfigurerad än, så du kan testa utan Telegram
   först).
-- `.github/workflows/klockvakt.yml` – kör allt var 3:e timme via GitHub
+- `klockvakt/dashboard.py` – skriver `docs/index.html`, en fristående
+  webbsida med alla objekt som matchar dina filter i den senaste körningen
+  (sorterade efter pris). Servas gratis via GitHub Pages, se nedan.
+- `.github/workflows/klockvakt.yml` – kör allt en gång per dygn via GitHub
   Actions, helt utan att du behöver hålla en egen dator igång.
 
 ## Testat lokalt
@@ -90,12 +94,35 @@ för att se att inget dubbelrapporteras.
 
 ## Deploya med GitHub Actions
 
-1. Skapa ett nytt (gärna privat) GitHub-repo och pusha den här mappen.
+1. Skapa ett nytt GitHub-repo och pusha den här mappen.
 2. Lägg till secrets enligt ovan.
-3. Workflow-filen kör automatiskt var 3:e timme, och sparar sitt state
-   (`state/seen.json`) tillbaka till repot mellan körningar.
+3. Workflow-filen kör automatiskt en gång per dygn (kl 17:00 finsk tid), och
+   sparar sitt state (`state/seen.json`) och dashboard (`docs/index.html`)
+   tillbaka till repot mellan körningar.
 4. Testa manuellt via fliken **Actions → Klockvakt → Run workflow** innan du
    litar på schemat.
+
+## Dashboard via GitHub Pages
+
+`docs/index.html` genereras automatiskt vid varje körning och visar alla
+klockor som matchar dina filter just nu – ingen extern server behövs,
+GitHub Pages servar filen gratis direkt från repot.
+
+**Obs:** GitHub Pages på gratisplanen kräver att repot är **publikt**.
+Inget hemligt ligger i själva filerna (Telegram-uppgifterna är GitHub
+Secrets, och Supabase-nyckeln i `config.json` är en avsiktligt publik
+anon-nyckel), men det är ett medvetet val att göra.
+
+1. Gör repot publikt: **Settings → General → Danger Zone → Change
+   visibility → Make public**.
+2. Aktivera Pages: **Settings → Pages → Build and deployment → Source:
+   "Deploy from a branch"** → Branch: `main`, mapp: `/docs` → **Save**.
+3. Efter någon minut är sidan live på
+   `https://<ditt-användarnamn>.github.io/<repo-namn>/`.
+
+Vill du hellre hålla repot privat: dashboard-filen skapas ändå lokalt vid
+varje körning (`docs/index.html`) – öppna den direkt i webbläsaren, eller
+kör GitHub Pages via ett betalt GitHub Pro-konto istället.
 
 ## Nästa steg
 

@@ -29,10 +29,10 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
-      - name: Spara uppdaterat state
+      - name: Spara uppdaterat state och dashboard
         run: |
           git config user.name "klockvakt-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add state/seen.json
-          git diff --staged --quiet || git commit -m "Uppdatera state [skip ci]"
+          git add state/seen.json docs/index.html
+          git diff --staged --quiet || git commit -m "Uppdatera state och dashboard [skip ci]"
           git push

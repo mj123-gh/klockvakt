@@ -1,0 +1,2883 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Klockvakt</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f5f4f1;
+    --card-bg: #ffffff;
+    --text: #1a1a1a;
+    --muted: #6b6b6b;
+    --border: #e4e2dd;
+    --accent: #8a6d3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17181a;
+      --card-bg: #232426;
+      --text: #ececec;
+      --muted: #9a9a9a;
+      --border: #34363a;
+      --accent: #d4af6a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 24px 16px 60px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  header {
+    max-width: 1100px;
+    margin: 0 auto 24px;
+  }
+  h1 {
+    margin: 0 0 4px;
+    font-size: 1.6rem;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .filters {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 8px;
+  }
+  .grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--text);
+    transition: transform 0.1s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+  }
+  .card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: var(--border);
+  }
+  .card .no-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .card-body {
+    padding: 12px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+  .card-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+  .card-shop {
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+  .card-price {
+    margin-top: auto;
+    padding-top: 6px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .empty {
+    max-width: 1100px;
+    margin: 60px auto;
+    text-align: center;
+    color: var(--muted);
+  }
+  footer {
+    max-width: 1100px;
+    margin: 40px auto 0;
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Klockvakt</h1>
+  <div class="meta">343 klockor matchar just nu &middot; uppdaterad 2026-09-13 14:50 UTC</div>
+  <div class="filters">Märken: Rolex, Omega, Tudor &middot; Pris: 0–11 000 € &middot; Utesluter: kvarts, quartz</div>
+</header>
+<div class="grid"><a class="card" href="https://nordicwatches.fi/products/vintage-omega-stopwatch-full-set" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0800/2296/2520/files/Vintage_Omega_stopwatch_full_set_front.jpg?v=1728904319" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega sekuntikello</div>
+    <div class="card-shop">Nordic Watches</div>
+    <div class="card-price">140 €</div>
+  </div>
+</a>
+<a class="card" href="https://nordicwatches.fi/products/omega-pocket-watch" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0800/2296/2520/files/ot1.jpg?v=1764684939" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega taskukello</div>
+    <div class="card-shop">Nordic Watches</div>
+    <div class="card-price">145 €</div>
+  </div>
+</a>
+<a class="card" href="https://nordicwatches.fi/products/kopio-heuer-poytakello-1" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0800/2296/2520/files/otaskari1.jpg?v=1704356637" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega taskukello</div>
+    <div class="card-shop">Nordic Watches</div>
+    <div class="card-price">175 €</div>
+  </div>
+</a>
+<a class="card" href="https://nordicwatches.fi/products/omega-pocket-watch-serviced" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0800/2296/2520/files/ot1-2.jpg?v=1741096919" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega taskukello (huollettu)</div>
+    <div class="card-shop">Nordic Watches</div>
+    <div class="card-price">195 €</div>
+  </div>
+</a>
+<a class="card" href="https://nordicwatches.fi/products/kopio-omega-sekuntikello-1" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0800/2296/2520/files/osekkarimusta1.jpg?v=1707209531" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega sekuntikello</div>
+    <div class="card-shop">Nordic Watches</div>
+    <div class="card-price">230 €</div>
+  </div>
+</a>
+<a class="card" href="https://nordicwatches.fi/products/omega-24h-pocket-watch" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0800/2296/2520/files/24h_2.jpg?v=1741095800" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega 24h taskukello</div>
+    <div class="card-shop">Nordic Watches</div>
+    <div class="card-price">350 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-970-vuodelta-1959/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2026/06/Omega-970.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-970 vuodelta 1959</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">370 €</div>
+  </div>
+</a>
+<a class="card" href="https://kellotori.fi/tuote/omega-dynamic/" target="_blank" rel="noopener">
+  <img src="https://kellotori.fi/wp-content/uploads/2025/07/IMG_8518-rotated.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Dynamic</div>
+    <div class="card-shop">Kellotori (Ville Pietilä)</div>
+    <div class="card-price">445 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-904-vuodelta-1950/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2024/10/Omega-904.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-904 vuodelta 1950</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">530 €</div>
+  </div>
+</a>
+<a class="card" href="https://nordicwatches.fi/products/omega-2738-1-manual-wind-watch-serviced" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0800/2296/2520/files/oh_1.jpg?v=1772786585" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega 2738-1 vetokello (huollettu)</div>
+    <div class="card-shop">Nordic Watches</div>
+    <div class="card-price">590 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-934-geneve-vuodelta-1969/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2025/09/Omega-934-3.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-934-Geneve vuodelta 1969</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">590 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-964-vuodelta-1959/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2026/06/Omega-964.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-964 vuodelta 1959</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">650 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-936-vuodelta-1962/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2025/09/Omega-936.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-936 vuodelta 1962</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">650 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-933-geneve-vuodelta-1973/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2025/09/Omega-933.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-933-Geneve vuodelta 1973</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">660 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-833-seamaster-chronometer-f-300-aanirautakello-vuodelta-1970/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2023/08/Omega-833.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-833  Seamaster Chronometer f 300 äänirautakello vuodelta 1970</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">720 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-534/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2020/05/Omega-534-1024x765-1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-534 vuodelta 1956</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">720 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-913-geneve-vuodelta-1968/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2024/11/Omega-913.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-913 Geneve vuodelta 1968</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">725 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-966-vuodelta-1954/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2026/06/Omega-966.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-966 vuodelta 1954</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">740 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-815-omega-seamaster-30-vuodelta-1962/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2023/01/Omega-815.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-815 Omega Seamaster 30 vuodelta 1962</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">780 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-809-vuodelta-1956/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2022/12/Omega-809-3.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-809 vuodelta 1956</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">780 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-937-vuodelta-1963/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2025/09/Omega-937.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-937 vuodelta 1963</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">800 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-795-seamaster-vuodelta-1959/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2022/09/Omega-795.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-795 Seamaster vuodelta 1959</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">825 €</div>
+  </div>
+</a>
+<a class="card" href="https://westerback.fi/products/pre-owned-omega-geneve" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0918/9303/9450/files/4582.jpg?v=1764335170" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Geneve</div>
+    <div class="card-shop">Westerback</div>
+    <div class="card-price">830 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.pirkankello.fi/product/omega-geneve-dynamic/" target="_blank" rel="noopener">
+  <img src="https://www.pirkankello.fi/app/uploads/sites/2/2026/09/omega-geneve-dynamic_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Geneve Dynamic 135.033</div>
+    <div class="card-shop">Pirkan Kello</div>
+    <div class="card-price">840 €</div>
+  </div>
+</a>
+<a class="card" href="https://kellotori.fi/tuote/omega-geneve-duble-1970/" target="_blank" rel="noopener">
+  <img src="https://kellotori.fi/wp-content/uploads/2026/01/image1-rotated.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Geneve Duble 1970</div>
+    <div class="card-shop">Kellotori (Ville Pietilä)</div>
+    <div class="card-price">840 €</div>
+  </div>
+</a>
+<a class="card" href="https://kellotori.fi/tuote/omega-1955-2/" target="_blank" rel="noopener">
+  <img src="https://kellotori.fi/wp-content/uploads/2026/05/IMG_9324.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega 1955</div>
+    <div class="card-shop">Kellotori (Ville Pietilä)</div>
+    <div class="card-price">850 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-constelation-day-date" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/c/o/constellationetu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Constellation Day-Date</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">850 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-693/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2020/12/Omega-693.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-693 vuodelta 1956</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">925 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-920-vuodelta-1954/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2025/02/Omega-920.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-920 vuodelta 1954</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">950 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/tudor-007-oyster-1950-luvulta/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2023/03/Tudor-007.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor-007 Oyster 1950 luvulta</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">950 €</div>
+  </div>
+</a>
+<a class="card" href="https://nordicwatches.fi/products/omega-seamaster-135-011-manual-wind-watch" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0800/2296/2520/files/omu1.jpg?v=1787834767" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster 135.011 vetokello</div>
+    <div class="card-shop">Nordic Watches</div>
+    <div class="card-price">990 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-946-geneve-dynamic/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2025/10/Omega-946.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-946 Geneve Dynamic</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 150 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-826-seamaster-vuodelta-1958/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2024/03/Omega-826-2.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-826 Seamaster vuodelta 1958</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 150 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-835-vasaraheiluriautomaatti-vuodelta-1954/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2023/08/Omega-835.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-835 vasaraheiluriautomaatti vuodelta 1954</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 150 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-810-harvinainen-jumbo-vuodelta-1947/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2022/12/Omega-810.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-810 harvinainen JUMBO vuodelta 1947</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 150 €</div>
+  </div>
+</a>
+<a class="card" href="https://kellotori.fi/tuote/omega-seamaster-5/" target="_blank" rel="noopener">
+  <img src="https://kellotori.fi/wp-content/uploads/2025/08/IMG_8560-rotated.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster</div>
+    <div class="card-shop">Kellotori (Ville Pietilä)</div>
+    <div class="card-price">1 150 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-922-jumbo-vuodelta-1952/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2025/03/Omega-922.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-922 Jumbo vuodelta 1952</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 200 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-seamaster-de-ville-165020" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/o/m/omega_seamaster_deville-1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Seamaster De Ville 165020</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">1 200 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-10013" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/o/m/omega_2446-1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega 2446-1</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">1 200 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-944-seamaster-vuodelta-1958/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2025/10/Omega-944.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-944 Seamaster vuodelta 1958</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 230 €</div>
+  </div>
+</a>
+<a class="card" href="https://kellotori.fi/tuote/omega-1952/" target="_blank" rel="noopener">
+  <img src="https://kellotori.fi/wp-content/uploads/2026/01/image34.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega 1952</div>
+    <div class="card-shop">Kellotori (Ville Pietilä)</div>
+    <div class="card-price">1 250 €</div>
+  </div>
+</a>
+<a class="card" href="https://kellotori.fi/tuote/omega-1955/" target="_blank" rel="noopener">
+  <img src="https://kellotori.fi/wp-content/uploads/2026/01/image23.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega 1955</div>
+    <div class="card-shop">Kellotori (Ville Pietilä)</div>
+    <div class="card-price">1 250 €</div>
+  </div>
+</a>
+<a class="card" href="https://kellotori.fi/tuote/omega-automatic/" target="_blank" rel="noopener">
+  <img src="https://kellotori.fi/wp-content/uploads/2025/02/IMG_8021-rotated.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Automatic</div>
+    <div class="card-shop">Kellotori (Ville Pietilä)</div>
+    <div class="card-price">1 250 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/tudor-006-princess-oysterdate-chrono-date/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2023/01/Tudor-006.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor-006 Princess Oysterdate Chrono-Date</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 300 €</div>
+  </div>
+</a>
+<a class="card" href="https://kellotori.fi/tuote/omega-1954/" target="_blank" rel="noopener">
+  <img src="https://kellotori.fi/wp-content/uploads/2026/01/image74-rotated.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega 1954</div>
+    <div class="card-shop">Kellotori (Ville Pietilä)</div>
+    <div class="card-price">1 350 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-suomikuoret" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/o/m/omega_suomikuoret-1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Suomikuoret  </div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">1 400 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/omega-constellation-22-mm-3/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/07/omega-0005-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Constellation 22 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">1 450 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/omega-constellation-22-mm-3/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/07/omega-0005-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Constellation 22 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">1 450 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/omega-constellation-22-mm-3/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/07/omega-0005-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Constellation 22 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">1 450 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-859-seamaster-mariner-vuodelta-1975/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2023/12/Omega-859.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-859 Seamaster Mariner vuodelta 1975</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 450 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-793-seamaster-ranchero-vuodelta-1959/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2022/09/Omega-793.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-793 Seamaster Ranchero vuodelta 1959</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 450 €</div>
+  </div>
+</a>
+<a class="card" href="https://kellotori.fi/tuote/omega-jumbo/" target="_blank" rel="noopener">
+  <img src="https://kellotori.fi/wp-content/uploads/2025/08/IMG_8618-rotated.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Jumbo</div>
+    <div class="card-shop">Kellotori (Ville Pietilä)</div>
+    <div class="card-price">1 450 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/omega-35-mm-v-1954/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/12/vintage-kello-0002-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA 35 mm, v. 1954</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">1 490 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/omega-35-mm-v-1954/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/12/vintage-kello-0002-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA 35 mm, v. 1954</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">1 490 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/omega-35-mm-v-1954/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/12/vintage-kello-0002-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA 35 mm, v. 1954</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">1 490 €</div>
+  </div>
+</a>
+<a class="card" href="https://westerback.fi/products/pre-owned-omega-geneve-1" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0918/9303/9450/files/4720.jpg?v=1765456309" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Geneve 14k</div>
+    <div class="card-shop">Westerback</div>
+    <div class="card-price">1 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-917-seamaster-ranchero-vuodelta-1958/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2025/01/Omega-917.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-917 Seamaster Ranchero vuodelta 1958</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 550 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-849-automatic-vasaraheilurikoneisto-vuodelta-1954/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2023/11/Omega-849.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-849 Automatic vasaraheilurikoneisto vuodelta 1954</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 550 €</div>
+  </div>
+</a>
+<a class="card" href="https://nordicwatches.fi/products/omega-seamaster-memomatic-automatic-watch" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0800/2296/2520/files/memo1.jpg?v=1785256348" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Memomatic automaattikello</div>
+    <div class="card-shop">Nordic Watches</div>
+    <div class="card-price">1 650 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-972-constellation-chronometer-automatic/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2026/06/Omega-972.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-972 Constellation Chronometer Automatic</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 720 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-898-constellation-piepan-chronometer-officially-certified-vuodelta-1966/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2024/08/Omega-898.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-898 Constellation Piepan Chronometer Officially Certified vuodelta 1966</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 770 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-877-de-ville-automatic-vuodelta-1972/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2024/04/Omega-877.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-877 De Ville Automatic vuodelta 1972</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 770 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-956-kultakello-suomikuorilla/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2025/11/Omega-956.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-956 Kultakello Suomikuorilla</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 800 €</div>
+  </div>
+</a>
+<a class="card" href="https://westerback.fi/products/pre-owned-omega-dynamic-iii" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0918/9303/9450/files/1000004761.jpg?v=1754392686" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Dynamic III</div>
+    <div class="card-shop">Westerback</div>
+    <div class="card-price">1 850 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/tudor-royal-38-ref-m28500" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_69b263b7a2ee4a8d996a34334f60ea2d~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor Royal 38, (ref. M28500) </div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">1 850 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-825-chronostop-jumbo-vuodelta-1968/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2023/07/Omega-825-3.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-825 Chronostop Jumbo vuodelta 1968</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">1 900 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-constellation-368-1214" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/d/o/doubleetu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Constellation Double Eagle 1503.10.00</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">2 000 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/omega-seamaster-35-mm-v-1963/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/03/vintage-omega-0009-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Seamaster 35 mm, v. 1963</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">2 100 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/omega-seamaster-35-mm-v-1963/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/03/vintage-omega-0009-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Seamaster 35 mm, v. 1963</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">2 100 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/omega-seamaster-35-mm-v-1963/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/03/vintage-omega-0009-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Seamaster 35 mm, v. 1963</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">2 100 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-888-seamaster-ranchero-vuodelta-1959/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2024/08/Omega-888.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-888 Seamaster Ranchero vuodelta 1959</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">2 200 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-967-ranchero/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2026/06/Omega-967.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-967 Ranchero</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">2 250 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.pirkankello.fi/product/omega-speedmaster-speedsonic-f300-lobster-198-0001/" target="_blank" rel="noopener">
+  <img src="https://www.pirkankello.fi/app/uploads/sites/2/2025/09/omega-speedmaster-speedsonic-f300-lobster-198-0001_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Speedsonic  f300 ”Lobster” 198.0001</div>
+    <div class="card-shop">Pirkan Kello</div>
+    <div class="card-price">2 290 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.pirkankello.fi/product/tudor-1926-luna-91560/" target="_blank" rel="noopener">
+  <img src="https://www.pirkankello.fi/app/uploads/sites/2/2026/04/tudor-1926-luna-91560_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor 1926 Luna 91560</div>
+    <div class="card-shop">Pirkan Kello</div>
+    <div class="card-price">2 390 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-954-seamaster-ranchero-vuodelta-1958/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2025/11/Omega-954-2.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-954 Seamaster Ranchero vuodelta 1958</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">2 450 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.pirkankello.fi/product/tudor-1926-luna-91560-0001/" target="_blank" rel="noopener">
+  <img src="https://www.pirkankello.fi/app/uploads/sites/2/2026/08/tudor-1926-luna-91560-0001_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor 1926 Luna 91560-0001</div>
+    <div class="card-shop">Pirkan Kello</div>
+    <div class="card-price">2 480 €</div>
+  </div>
+</a>
+<a class="card" href="https://westerback.fi/products/pre-owned-omega-constellation" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0918/9303/9450/files/IMG_20251126_121144_edit_248815057583676.jpg?v=1764152884" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Constellation</div>
+    <div class="card-shop">Westerback</div>
+    <div class="card-price">2 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.pirkankello.fi/product/tudor-sport-chronograph-20300/" target="_blank" rel="noopener">
+  <img src="https://www.pirkankello.fi/app/uploads/sites/2/2026/02/tudor-sport-chronograph-20300_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor Sport Chronograph 20300</div>
+    <div class="card-shop">Pirkan Kello</div>
+    <div class="card-price">2 580 €</div>
+  </div>
+</a>
+<a class="card" href="https://nordicwatches.fi/products/omega-seamaster-176-007-chronograph" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0800/2296/2520/files/sc1.jpg?v=1788183686" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster 176.007 kronografi</div>
+    <div class="card-shop">Nordic Watches</div>
+    <div class="card-price">2 590 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-tudor-black-bay-79230r" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/t/u/tudor_79230r_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Black bay 79230R</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">2 699 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/omega-speedmaster-racing-40mm-ref-32632405011001" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_d1d81b0393d6408ebdb91454084f794f~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Racing, 40mm, (ref. 32632405011001) </div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">2 750 €</div>
+  </div>
+</a>
+<a class="card" href="https://nordicwatches.fi/products/omega-speedmaster-mark-ii-racing-chronograph" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0800/2296/2520/files/racing1.jpg?v=1734455142" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Mark II Racing kronografi</div>
+    <div class="card-shop">Nordic Watches</div>
+    <div class="card-price">2 850 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/omega-constellation-35-mm-2/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/07/omega-0001-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Constellation 35 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">2 850 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/omega-constellation-35-mm-2/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/07/omega-0001-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Constellation 35 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">2 850 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/omega-constellation-35-mm-2/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/07/omega-0001-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Constellation 35 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">2 850 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-railmaster-220-12-40-20-01-001-co-axial-master-chronometer" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/r/a/railetu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Railmaster 220.12.40.20.01.001 Co-Axial  Master Chronometer</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">2 870 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/tudor-heritage-black-bay-41-heritage-79540-ra60403/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/04/ra60403_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">TUDOR Heritage Black Bay 41 Heritage 79540</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">2 890 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/omega-speedmaster-iv-41-mm-v-1977/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/10/untitled-0001-6-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Speedmaster IV, 41 mm, v. 1977</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">2 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/omega-speedmaster-iv-41-mm-v-1977/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/10/untitled-0001-6-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Speedmaster IV, 41 mm, v. 1977</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">2 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/omega-speedmaster-iv-41-mm-v-1977/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/10/untitled-0001-6-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Speedmaster IV, 41 mm, v. 1977</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">2 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/tudor-prince-oysterdate-v-1965-34mm/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2023/06/kultakorvakorut-10-2.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">TUDOR Prince Oysterdate v.1965, 34mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">2 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/tudor-prince-oysterdate-v-1965-34mm/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2023/06/kultakorvakorut-10-2.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">TUDOR Prince Oysterdate v.1965, 34mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">2 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/tudor-prince-oysterdate-v-1965-34mm/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2023/06/kultakorvakorut-10-2.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">TUDOR Prince Oysterdate v.1965, 34mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">2 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-tudor-pelagos-25500tn" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/t/u/tudor_pelagos_01_1080x1080.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Pelagos  25500TN</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">3 000 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/tudor-black-bay-39-ref-79660-1" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_febdd871a29e43f9afc1539892c26126~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor Black Bay 39, (ref. 79660)</div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">3 080 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-tudor-black-bay-gmt-m79830rb-0003" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/t/u/tudor_blackbay_gmt-1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Black Bay GMT  M79830RB-0003</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">3 100 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/omega-seamaster-professional-300m-electric-blue-41mm-ref-2255-80" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_8aab354f59584e7892313f1e201ae810~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Professional 300M &quot;Electric Blue&quot;, 41mm, (ref. 2255.80)</div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">3 100 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.aikarauta.fi/product/22695334/tudor-black-bay-one-41-blue" target="_blank" rel="noopener">
+  <img src="https://primary.jwwb.nl/public/g/i/g/temp-cegqzxbtbdinsixadlyp/tudorsininen1-standard.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor Black Bay One 41 Blue</div>
+    <div class="card-shop">Aikarauta</div>
+    <div class="card-price">3 150 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/tudor-black-bay-p01-42mm-ref-70150-1" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_65c0c88f92fc4d6b93595a97f4a6ae67~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor Black Bay P01, 42mm, (ref. 70150)</div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">3 190 €</div>
+  </div>
+</a>
+<a class="card" href="https://westerback.fi/products/pre-owned-tudor-black-bay-54" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0918/9303/9450/files/IMG_20250422_153337.jpg?v=1749469015" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Black Bay 54</div>
+    <div class="card-shop">Westerback</div>
+    <div class="card-price">3 200 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/tudor-heritage-chrono-blue-42mm-ref-70330b" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_250012535cc24455b28af9c6cd1dfc6d~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor Heritage Chrono Blue, 42mm, (ref. 70330B) </div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">3 290 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-tudor-black-bay-fifty-eight-79030n" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/t/u/tudor_blackbay_79030n01_1080x1080.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor  Black Bay Fifty-Eight  79030N</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">3 300 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.aikarauta.fi/product/23711263/tudor-black-bay-pro" target="_blank" rel="noopener">
+  <img src="https://primary.jwwb.nl/public/g/i/g/temp-cegqzxbtbdinsixadlyp/tgmt5-standard.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor Black Bay Pro</div>
+    <div class="card-shop">Aikarauta</div>
+    <div class="card-price">3 300 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.sorkankello.fi/valikoima/tudor-black-bay-43" target="_blank" rel="noopener">
+  <img src="https://cdn.prod.website-files.com/63c2a32497dcf44837aea817/68cefbeba6e940587e22b679_M79030B-0001.png.webp" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor Black Bay Fifty-Eight</div>
+    <div class="card-shop">Sörkan Kello</div>
+    <div class="card-price">3 350 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.pirkankello.fi/product/omega-seamaster-200-banana-st166-068/" target="_blank" rel="noopener">
+  <img src="https://www.pirkankello.fi/app/uploads/sites/2/2025/04/omega-seamaster-200-banana-st166-068_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster 200 ”Banana” ST166.068</div>
+    <div class="card-shop">Pirkan Kello</div>
+    <div class="card-price">3 380 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-speedmaster-mark-ii-1974.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/e7bd07b5-f7c4-41de-bd10-175583928c97-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Mark II 145.014</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">3 390 €</div>
+  </div>
+</a>
+<a class="card" href="https://westerback.fi/products/pre-owned-tudor-pelagos" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0918/9303/9450/files/1000021902.jpg?v=1784117359" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Pelagos</div>
+    <div class="card-shop">Westerback</div>
+    <div class="card-price">3 400 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/tudor/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2022/03/4693c-1226.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">TUDOR Heritage Black Bay, 40mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">3 480 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/tudor/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2022/03/4693c-1226.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">TUDOR Heritage Black Bay, 40mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">3 480 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/tudor/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2022/03/4693c-1226.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">TUDOR Heritage Black Bay, 40mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">3 480 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-seamastet-gmt-22345000.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/a5bc4bc9-6cb2-4957-83b9-c03df80808b9-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster GMT 2234.5000</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">3 490 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/omega-seamaster-200-41-mm/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2024/10/omegabanana-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Seamaster, 200 41 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">3 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/omega-seamaster-200-41-mm/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2024/10/omegabanana-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Seamaster, 200 41 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">3 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/omega-seamaster-200-41-mm/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2024/10/omegabanana-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Seamaster, 200 41 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">3 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-seamaster-300m-2594-52-00-chrono-diver" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/c/h/chronoetu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Seamaster 300M 2594.52.00 Chrono Diver</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">3 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/tudor-heritage-black-bay-blue-41" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/b/o/boksikuvat-14.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Heritage Black Bay Blue 79230B</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">3 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/omega-seamaster-diver-300m-gmt-41mm-ref-2535-80" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_cdf90b7c35ba4534ae48079f8bb367c0~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Diver 300M GMT, 41mm, (ref. 2535.80) </div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">3 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-seamaster-planet-ocean-8500-xl.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/c8f2f55c-920f-453d-acc1-b104325a6d5d-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster PO XL Rubber</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">3 590 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/tudor-black-bay-41-mm-v-2015/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/12/untitled-0013-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">TUDOR Black Bay 41 mm, v. 2015</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">3 650 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/tudor-black-bay-41-mm-v-2015/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/12/untitled-0013-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">TUDOR Black Bay 41 mm, v. 2015</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">3 650 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/tudor-black-bay-41-mm-v-2015/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/12/untitled-0013-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">TUDOR Black Bay 41 mm, v. 2015</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">3 650 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kiipperi.fi/tuote/tudor-black-bay-harrods/" target="_blank" rel="noopener">
+  <img src="https://www.kiipperi.fi/wp-content/uploads/2026/04/DSC01423.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor Black Bay Harrods</div>
+    <div class="card-shop">Kiipperi</div>
+    <div class="card-price">3 650 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/tudor-bb41-79230g-harrods.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/b7c24830-8ee4-492e-b21c-76e3dd8d9350-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor BB41 79230G Harrods</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">3 690 €</div>
+  </div>
+</a>
+<a class="card" href="https://westerback.fi/products/pre-owned-tudor-pelagos-39" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0918/9303/9450/files/6449_8788d7ba-911d-43b3-9f83-fa3db06c03cd.jpg?v=1788944073" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Pelagos 39</div>
+    <div class="card-shop">Westerback</div>
+    <div class="card-price">3 700 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/tudor-black-bay-harrods-41-79230g-ra60701/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/07/ra60701_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">TUDOR Black Bay Harrods 41 79230G</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">3 790 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/tudor-black-bay-39-s-g-ref-m79663" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_81632242ebfa4b9fbac7ae54c7d94aff~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor Black Bay 39 S&amp;G, (ref. M79663)</div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">3 790 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/omega-speedmaster-racing-42-mm-v-2006/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/12/untitled-0003-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Speedmaster Racing 42 mm, v. 2006</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">3 800 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/omega-speedmaster-racing-42-mm-v-2006/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/12/untitled-0003-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Speedmaster Racing 42 mm, v. 2006</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">3 800 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/omega-speedmaster-racing-42-mm-v-2006/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/12/untitled-0003-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Speedmaster Racing 42 mm, v. 2006</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">3 800 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-tudor-north-flag-91210n" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/l/i/lippuetu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor North Flag 91210N</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">3 800 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-tudor-heritage-chrono-70330n" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/h/e/heritageetu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Heritage Chrono 70330N</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">3 840 €</div>
+  </div>
+</a>
+<a class="card" href="https://westerback.fi/products/pre-owned-tudor-heritage-black-bay-chronograph" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0918/9303/9450/files/IMG_20250729_124853_edit_2830285928135278.jpg?v=1753785290" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Heritage Black Bay Chronograph</div>
+    <div class="card-shop">Westerback</div>
+    <div class="card-price">3 850 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.pirkankello.fi/product/omega-flightmaster-chronograph-145-026/" target="_blank" rel="noopener">
+  <img src="https://www.pirkankello.fi/app/uploads/sites/2/2025/08/omega-flightmaster-chronograph-145-026_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Flightmaster Chronograph 145.026</div>
+    <div class="card-shop">Pirkan Kello</div>
+    <div class="card-price">3 890 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-seamaster-300" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/s/e/seanelj_viis.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Seamaster 300</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">3 890 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-tudor-pelagos-lefty-25610tnl" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/p/e/pelagosetu_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Pelagos Lefty 25610TNL</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">3 890 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-tudor-black-bay-79830rb" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/b/b/bbpun.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Black Bay GMT 79830RB</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">3 890 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-seamaster-pro-diver-41-black.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/152ae9e2-0e7b-4eb1-a0e8-c89f6dd47d75-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Pro Diver 41</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">3 890 €</div>
+  </div>
+</a>
+<a class="card" href="https://primetimekellot.fi/shop-HaQPU/p/rolex-oyster-perpetual-date-1969" target="_blank" rel="noopener">
+  <img src="https://static1.squarespace.com/static/6781c5faf17ab571c8a06304/6781c934e7895826c3ac794b/697ea0fead237646317e089d/1788152416042/" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Oyster Perpetual Date (1969)</div>
+    <div class="card-shop">Prime Time Kellot</div>
+    <div class="card-price">3 900 €</div>
+  </div>
+</a>
+<a class="card" href="https://nordicwatches.fi/products/rolex-precision-9708-18k-manual-wind-watch" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0800/2296/2520/files/rolex1.jpg?v=1788099258" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Precision 9708 18k vetokello</div>
+    <div class="card-shop">Nordic Watches</div>
+    <div class="card-price">3 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.pirkankello.fi/product/rolex-oyster-perpetual-datejust-6827/" target="_blank" rel="noopener">
+  <img src="https://www.pirkankello.fi/app/uploads/sites/2/2026/08/rolex-oyster-perpetual-datejust-6827_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Oyster Perpetual Datejust 6827</div>
+    <div class="card-shop">Pirkan Kello</div>
+    <div class="card-price">3 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://voltairekellot.fi/product/tudor-pelagos-25600tn-2024-full-set/" target="_blank" rel="noopener">
+  <img src="https://voltairekellot.fi/wp-content/uploads/2026/04/featured_img_M25600TN-0001-300x476-1.png" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor Pelagos 25600TN – 2024 full-set</div>
+    <div class="card-shop">Voltaire</div>
+    <div class="card-price">3 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-tudor-black-bay-mt5602-u" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/b/b/bb24etu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Black Bay MT5602-U</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">3 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-tudor-black-bay-pro-79470" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/t/u/tudor_black_bay_pro_gmt-1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Black Bay Pro 79470</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">3 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-aqua-terra-white-8500.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/c357e6aa-b333-4997-97c3-2e6446652ab1-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Aqua Terra 8500</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">3 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/tudor-pelagos-25600tb-2024.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/9615e0f8-cf5e-4dc1-b446-639de2c53d92-1-105-c_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor Pelagos 25600TB</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">3 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/tudor-black-bay-41-metas-red-jubilee-52025.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/b958a9aa-3a50-4549-8c10-4e0081952d3b-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor BB41 M7941A1A0RU</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">3 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://primetimekellot.fi/shop-HaQPU/p/omega-seamaster-planet-ocean-82016" target="_blank" rel="noopener">
+  <img src="https://static1.squarespace.com/static/6781c5faf17ab571c8a06304/6781c934e7895826c3ac794b/6938a466179cfd663d9ef286/1788124312738/" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Planet Ocean (8/2016)</div>
+    <div class="card-shop">Prime Time Kellot</div>
+    <div class="card-price">3 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-rolex-datejust-16220" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/d/j/djetu_2.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Rolex Datejust 16220</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">4 000 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-tudor-pelagos-lhd-m25610tnl-0001" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/b/o/boksikuvat-11.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Pelagos LHD M25610TNL-0001</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">4 000 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.chronoxkellot.fi/kellot/tudor-black-bay-chrono-black-41mm-05-2022" target="_blank" rel="noopener">
+  <img src="https://cdn.prod.website-files.com/64885586fd89494ca09f1aea/6a9728a3ab71fdf88b749ddb_34735.avif" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor Black Bay Chrono Black 41mm (05/2022)</div>
+    <div class="card-shop">ChronoX</div>
+    <div class="card-price">4 100 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/omega-seamaster-diver-chronograph-ra60413/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/04/ra60413_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Seamaster Professional Diver Chronograph 212.30.42.50.01.001</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">4 190 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/omega-flightmaster-43mm-v-1969/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/03/vintage-omega-0002-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Flightmaster 43mm, v. 1969</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 250 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/omega-flightmaster-43mm-v-1969/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/03/vintage-omega-0002-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Flightmaster 43mm, v. 1969</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 250 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/omega-flightmaster-43mm-v-1969/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/03/vintage-omega-0002-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Flightmaster 43mm, v. 1969</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 250 €</div>
+  </div>
+</a>
+<a class="card" href="https://longitudi.fi/product/18k-omega-tresor-jumbo-from-1954" target="_blank" rel="noopener">
+  <img src="https://longitudi.fi/wp-content/uploads/2026/06/18k-Omega-Tresor-2687-1954-3.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">18k Omega Trésor Jumbo from 1954</div>
+    <div class="card-shop">Longitudi</div>
+    <div class="card-price">4 250 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/tudor-black-bay-ceramic-41-blue-dial-79210cnu-ra51102/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2025/11/ra51102_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">TUDOR Black Bay Ceramic 41 Blue Dial 79210CNU (UNWORN)</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">4 290 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-speedmaster-racing-2020.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/06200be6-6d28-47d7-893d-70909999c4c6-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Racing</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">4 290 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/tudor-bb-chrono-79363n-2020.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/1f506f26-cfdb-4b3d-b099-7fd2d059f3bd-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor BB Chrono TT 79363N</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">4 390 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/omega-speedmaster-professional-moonwatch-42mm-ref-3570-50" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_1dfca0ed188142e8abe4edf4cc740eef~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Professional &quot;Moonwatch&quot;, 42mm, (ref. 3570.50) </div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">4 390 €</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-854-speedmaster-automatic-chronograph-chronometer-125-vuotisjuhlamalli-vuodelta-1973/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2023/11/Omega-854.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-854 Speedmaster  Automatic Chronograph Chronometer 125-vuotisjuhlamalli vuodelta 1973</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">4 450 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/omega-seamaster-professional-42-black-ra60807/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/08/ra60807_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Seamaster Professional 42mm Black 210.30.42.20.01.001</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">4 490 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/omega-seamaster-professional-42mm-blue-ra60801/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/08/ra60801_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Seamaster Professional 42mm Blue 210.30.42.20.03.001</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">4 490 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/omega-seamaster-professional-42mm-grey-ra60507/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/06/ra60507_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Seamaster Professional 42mm Grey 210.30.42.20.06.001</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">4 490 €</div>
+  </div>
+</a>
+<a class="card" href="https://primetimekellot.fi/shop-HaQPU/p/rolex-datejust-36-1967" target="_blank" rel="noopener">
+  <img src="https://static1.squarespace.com/static/6781c5faf17ab571c8a06304/6781c934e7895826c3ac794b/69a8a24cbe8d03509bbdbd57/1788171503600/" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Datejust 36 (1967)</div>
+    <div class="card-shop">Prime Time Kellot</div>
+    <div class="card-price">4 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/rolex-cellini-26-mm-v-1991/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/05/rolex-0001-8-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Cellini 26 mm, v. 1991</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 550 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/rolex-cellini-26-mm-v-1991/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/05/rolex-0001-8-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Cellini 26 mm, v. 1991</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 550 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/rolex-cellini-26-mm-v-1991/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/05/rolex-0001-8-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Cellini 26 mm, v. 1991</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 550 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/rolex-air-king-34mm-v-2022/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/05/rolex-0004-7-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Air-King 34mm, v. 2002</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 550 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/rolex-air-king-34mm-v-2022/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/05/rolex-0004-7-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Air-King 34mm, v. 2002</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 550 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/rolex-air-king-34mm-v-2022/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/05/rolex-0004-7-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Air-King 34mm, v. 2002</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 550 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/rolex-date-lady-26-mm-v-1963-2/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/05/untitled-0001-3-1-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Date Lady 26 mm, v. 1963</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 550 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/rolex-date-lady-26-mm-v-1963-2/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/05/untitled-0001-3-1-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Date Lady 26 mm, v. 1963</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 550 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/rolex-date-lady-26-mm-v-1963-2/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/05/untitled-0001-3-1-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Date Lady 26 mm, v. 1963</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 550 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/omega-constellation-34-mm-v-1968/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/05/luxury-vintage-0007-7-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Constellation 34 mm, v.1968</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 550 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/omega-constellation-34-mm-v-1968/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/05/luxury-vintage-0007-7-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Constellation 34 mm, v.1968</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 550 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/omega-constellation-34-mm-v-1968/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/05/luxury-vintage-0007-7-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Constellation 34 mm, v.1968</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 550 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-seamaster-planet-ocean-titanium-rubber-42.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/4d957f2b-40f6-49a8-b4e1-3318b45d7a59-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster PO42 Titanium</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">4 590 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-tudorblack-bay-chronograph-79360n" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/b/b/bbchrononelj_viis.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Black Bay Chronograph 79360N</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">4 600 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.aikarauta.fi/product/24185126/omega-speedmaster" target="_blank" rel="noopener">
+  <img src="https://primary.jwwb.nl/public/g/i/g/temp-cegqzxbtbdinsixadlyp/speed6-standard.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster</div>
+    <div class="card-shop">Aikarauta</div>
+    <div class="card-price">4 600 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/rolex-date-lady-26mm-v-1985/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/04/rolex-0006-6-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Date Lady, 26mm, v. 1985</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 650 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/rolex-date-lady-26mm-v-1985/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/04/rolex-0006-6-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Date Lady, 26mm, v. 1985</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 650 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/rolex-date-lady-26mm-v-1985/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/04/rolex-0006-6-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Date Lady, 26mm, v. 1985</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 650 €</div>
+  </div>
+</a>
+<a class="card" href="https://longitudi.fi/product/18k-omega-constellation-pie-pan-turler-from-1961" target="_blank" rel="noopener">
+  <img src="https://longitudi.fi/wp-content/uploads/2026/06/18k-Omega-Constellation-Turler-1961-3-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">18k Omega Constellation “Pie-Pan” Türler from 1961</div>
+    <div class="card-shop">Longitudi</div>
+    <div class="card-price">4 650 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/omega-aqua-terra-150m-38mm-ra60806/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/08/ra60806_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Aqua Terra 150M 38mm 220.10.38.20.02.001</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">4 690 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-seamaster-pro-diver-42-white-2022.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/aecb2782-f208-446f-ae10-85f7fa7e0848-1-105-c_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Pro Diver 42</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">4 690 €</div>
+  </div>
+</a>
+<a class="card" href="https://gello.fi/watches/omega-speedmaster-fois" target="_blank" rel="noopener">
+  <img src="https://cdn.prod.website-files.com/6654b6bb4fe4a97b149bfb4f/69e0a962878f7a390f352636_omega-speed.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster FOIS</div>
+    <div class="card-shop">Gello</div>
+    <div class="card-price">4 690 €</div>
+  </div>
+</a>
+<a class="card" href="https://voltairekellot.fi/product/omega-speedmaster-moonwatch-3570-50-00/" target="_blank" rel="noopener">
+  <img src="https://voltairekellot.fi/wp-content/uploads/2026/03/omega-moonwatch-speedmaster.jpg.png" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Moonwatch 3570.50.00</div>
+    <div class="card-shop">Voltaire</div>
+    <div class="card-price">4 700 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-speedmaster-moonwatch-311-33-42-30-01-001" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/s/p/speeduetu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Speedmaster Moonwatch 311.33.42.30.01.001 </div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">4 700 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-seamaster-planet-ocean-goodplanet-232-32-44-22-03-001" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/o/m/omega_seamaster_planet_ocean-1_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Seamaster Planet Ocean Goodplanet 232.32.44.22.03.001</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">4 700 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.aikarauta.fi/product/24068398/omega-seamaster-diver-300m" target="_blank" rel="noopener">
+  <img src="https://primary.jwwb.nl/public/g/i/g/temp-cegqzxbtbdinsixadlyp/osm5-standard.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Diver 300M</div>
+    <div class="card-shop">Aikarauta</div>
+    <div class="card-price">4 700 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/rolex-datejust-lady-26-69174-ra60708/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/07/ra60708_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust Lady 26mm 69174</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">4 790 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/rolex-date-lady-26-mm-v-1978/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/05/untitled-0001-2-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Date Lady 26 mm, v. 1978</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 790 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/rolex-date-lady-26-mm-v-1978/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/05/untitled-0001-2-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Date Lady 26 mm, v. 1978</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 790 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/rolex-date-lady-26-mm-v-1978/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/05/untitled-0001-2-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Date Lady 26 mm, v. 1978</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">4 790 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-speedmaster-racing-black-2025-nos.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/9e121892-0e65-499d-bbb5-948d57261fb0-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Racing NOS</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">4 790 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/omega-speedmaster-professional-moonwatch-42mm-ref-311-30-42-30-01-005" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_72b719486ebe4975bf4558090a9cf9d9~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Professional &quot;Moonwatch&quot;, 42mm, (ref. 311.30.42.30.01.005) </div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">4 800 €</div>
+  </div>
+</a>
+<a class="card" href="https://longitudi.fi/product/omega-seamaster-kronografi-145-006-vuodelta-1967" target="_blank" rel="noopener">
+  <img src="https://longitudi.fi/wp-content/uploads/2026/02/Omega-Seamaster-145.006-66-1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster chronograph 145.006 from 1967</div>
+    <div class="card-shop">Longitudi</div>
+    <div class="card-price">4 850 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/omega-speedmaster-moonwatch-ra60810/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/08/ra60810_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Speedmaster Professional Moonwatch 311.30.42.30.01.005</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">4 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/omega-aqua-terra-38mm-steel-leather-ra60802/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/08/ra60802_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Aqua Terra 38mm Steel &amp; Leather 220.13.38.20.01.001</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">4 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-tudor-black-bay-79230g-harrods" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/t/a/taulu_2_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Black Bay 79230G &quot;Harrods&quot;</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">4 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-aquaterra-22012412103002" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/a/q/aquaetineli_.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Aquaterra 22012412103002</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">4 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-seamaster-planet-ocean-600m-co-axial-chronometer-21530442104001" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/o/m/omega_seamaster_planet_ocean_600m_coaxial-2.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Seamaster Planet Ocean 600M Co-Axial Chronometer 21530442104001</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">4 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/tudor-black-bay-chrono-blue-79360b-2024.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/1a48da2c-4f4b-4631-9bd9-15c47d144d9f-1-105-c_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor BB Chrono Blue 79360B</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">4 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-seamaster-pro-diver-42-black-2020.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/63184b6a-fcfa-414f-a5e1-1f4123a21182-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Pro Diver 42</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">4 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-seamaster-heritage-300.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/1c7f5adc-502b-4f78-9f0d-f4a354641c9c-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster 300 Heritage</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">4 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-seamaster-pro-diver-42-seaweed-2023.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/b8f1ce41-1830-4d4c-81b1-50799670cd18-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Pro Diver 42</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">4 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.chronoxkellot.fi/kellot/omega-seamaster-planet-ocean-600m-43-5mm-01-2023" target="_blank" rel="noopener">
+  <img src="https://cdn.prod.website-files.com/64885586fd89494ca09f1aea/6a972ee4c01096a2265b8b39_34506.avif" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Planet Ocean 600M 43.5mm (01/2023)</div>
+    <div class="card-shop">ChronoX</div>
+    <div class="card-price">4 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kiipperi.fi/tuote/rolex-datejust-two-tone-16013-4/" target="_blank" rel="noopener">
+  <img src="https://www.kiipperi.fi/wp-content/uploads/2026/06/DSC01538.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Datejust Two Tone 16013</div>
+    <div class="card-shop">Kiipperi</div>
+    <div class="card-price">5 100 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/rolex-date-34-mm-v-1986/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/01/rolex-0002-3-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Date 34 mm, v.1986</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">5 150 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/rolex-date-34-mm-v-1986/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/01/rolex-0002-3-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Date 34 mm, v.1986</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">5 150 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/rolex-date-34-mm-v-1986/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/01/rolex-0002-3-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Date 34 mm, v.1986</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">5 150 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/omega-planet-ocean-goodplanet-gmt-ra60809/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2025/10/ra51007_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Seamaster Planet Ocean GoodPlanet GMT 232.32.44.22.03.001</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">5 190 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-speedmaster-hesalite-2019.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/6f923e8a-3ac8-4324-8ccc-283f07c5992d-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Hesalite 2019</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">5 190 €</div>
+  </div>
+</a>
+<a class="card" href="https://longitudi.fi/product/omega-ranchero-ck2990-1-from-1958" target="_blank" rel="noopener">
+  <img src="https://longitudi.fi/wp-content/uploads/2026/06/Omega-Ranchero-2990-1958-4-2.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Ranchero CK2990-1 from 1958</div>
+    <div class="card-shop">Longitudi</div>
+    <div class="card-price">5 200 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-tudor-black-bay-gmt-s-g-rootbeer-79833mn" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/b/o/boksikuvat-3.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Tudor Black Bay GMT S&amp;G &quot;Rootbeer&quot; 79833MN</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">5 200 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/omega-speedmaster-40-mm/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/10/untitled-0008-3-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Speedmaster 40 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">5 250 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/omega-speedmaster-40-mm/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/10/untitled-0008-3-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Speedmaster 40 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">5 250 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/omega-speedmaster-40-mm/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/10/untitled-0008-3-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Speedmaster 40 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">5 250 €</div>
+  </div>
+</a>
+<a class="card" href="https://takuukello.fi/kellot/omega-seamaster-300-m/" target="_blank" rel="noopener">
+  <img src="https://takuukello.fi/wp-content/uploads/2026/08/omega-seamaster-300m-1-clean.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster 300 M</div>
+    <div class="card-shop">Takuukello</div>
+    <div class="card-price">5 250 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-seamaster-aqua-terra-green-2023.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/99f4fb70-fc23-44bd-b17e-7ad97eaa1f2a-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Aqua Terra Green 41</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">5 290 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-aqua-terra-38-saffron-2023.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/5d5cfbf8-db27-4c61-b19c-e3b58c109e48-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Aqua Terra Saffron 38</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">5 290 €</div>
+  </div>
+</a>
+<a class="card" href="https://takuukello.fi/kellot/omega-seamaster-300-m-2/" target="_blank" rel="noopener">
+  <img src="https://takuukello.fi/wp-content/uploads/2026/08/784200877_1614105010508141_1674472468003471463_n.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster 300 m</div>
+    <div class="card-shop">Takuukello</div>
+    <div class="card-price">5 300 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/omega-speedmaster-professional-42mm-ref-145-022-71" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_1ff4eff7f02f4962b8212c6b89d0bd79~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Professional, 42mm, (ref. 145.022-71)</div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">5 350 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kiipperi.fi/tuote/kayttamaton-omega-seamaster-diver-300m-co-axial-master-chronometer/" target="_blank" rel="noopener">
+  <img src="https://www.kiipperi.fi/wp-content/uploads/2026/03/DSC01365.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">*KÄYTTÄMÄTÖN* Omega Seamaster Diver 300m Co-Axial Master Chronometer</div>
+    <div class="card-shop">Kiipperi</div>
+    <div class="card-price">5 400 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/omega-speedmaster-professional-pre-moon-42mm-ref-145-022-69-st" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_001a2d22199c459f81332db0ea5fdb03~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Professional &quot;Pre-Moon&quot;, 42mm, (ref. 145.022-69 ST) </div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">5 400 €</div>
+  </div>
+</a>
+<a class="card" href="https://nordicwatches.fi/products/omega-speedmaster-mark-ii-145-034-chronograph-serviced" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0800/2296/2520/files/speedyk1.jpg?v=1731658423" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Mark II 145.034 kronografi (huollettu)</div>
+    <div class="card-shop">Nordic Watches</div>
+    <div class="card-price">5 490 €</div>
+  </div>
+</a>
+<a class="card" href="https://westerback.fi/products/omega-seamaster-diver-300m-tokyo-2020" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0918/9303/9450/files/4760.jpg?v=1765968105" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Seamaster Diver 300m Tokyo 2020</div>
+    <div class="card-shop">Westerback</div>
+    <div class="card-price">5 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/omega-constellation-35-mm-v-1966-2/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/05/omega-0007-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Constellation 35 mm, v. 1966</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">5 560 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/omega-constellation-35-mm-v-1966-2/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/05/omega-0007-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Constellation 35 mm, v. 1966</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">5 560 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/omega-constellation-35-mm-v-1966-2/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/05/omega-0007-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Constellation 35 mm, v. 1966</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">5 560 €</div>
+  </div>
+</a>
+<a class="card" href="https://westerback.fi/products/pre-owned-omega-speedmaster-fois-anniversary-series" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0918/9303/9450/files/1000021912.jpg?v=1784122026" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Speedmaster FOIS Anniversary Series</div>
+    <div class="card-shop">Westerback</div>
+    <div class="card-price">5 600 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-speedmaster-moonwatch-311-30-42-30-01-005" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/o/m/omega_speedmaster_moonwatch-1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Speedmaster Moonwatch 311.30.42.30.01.005</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">5 700 €</div>
+  </div>
+</a>
+<a class="card" href="https://longitudi.fi/product/rolex-oyster-perpetual-31-from-2005" target="_blank" rel="noopener">
+  <img src="https://longitudi.fi/wp-content/uploads/2026/08/Rolex-Oyster-Perpetual-31-77513-2005-5.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Oyster Perpetual 31 from 2005</div>
+    <div class="card-shop">Longitudi</div>
+    <div class="card-price">5 800 €</div>
+  </div>
+</a>
+<a class="card" href="https://longitudi.fi/product/rolex-oyster-perpetual-34-114200-vuodelta-2010-full-set" target="_blank" rel="noopener">
+  <img src="https://longitudi.fi/wp-content/uploads/2026/02/Rolex-OP-34-114200-2010-06-1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex OP Air-King 34 114200 from 2010 FULL-SET</div>
+    <div class="card-shop">Longitudi</div>
+    <div class="card-price">5 800 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.aikarauta.fi/product/24012126/omega-speedmaster-moonwatch-1971" target="_blank" rel="noopener">
+  <img src="https://primary.jwwb.nl/public/g/i/g/temp-cegqzxbtbdinsixadlyp/mw5-standard.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Moonwatch 1971</div>
+    <div class="card-shop">Aikarauta</div>
+    <div class="card-price">5 800 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/omega-seamaster-300-master-summer-blue-ra60502/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/05/ra60502_1_2.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">OMEGA Seamaster 300 Master Summer Blue 234.30.41.21.03.002</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">5 890 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-seamaster-diver-chrono-blue-2020.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/373b00fd-8b25-4ca6-96b3-4688e4ec3512-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Diver Chrono</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">5 890 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/rolex-datejust-36-mm-v-1978/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/11/untitled-0008-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 36 mm, v.1978</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">5 900 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/rolex-datejust-36-mm-v-1978/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/11/untitled-0008-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 36 mm, v.1978</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">5 900 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/rolex-datejust-36-mm-v-1978/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/11/untitled-0008-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 36 mm, v.1978</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">5 900 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.aikajaaarre.fi/product/16457290/omega-seamaster-planet-ocean" target="_blank" rel="noopener">
+  <img src="https://primary.jwwb.nl/public/g/v/j/temp-wbvmzsxgyzvumlklyujn/img_5120-standard.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega seamaster planet ocean</div>
+    <div class="card-shop">Aika &amp; Aarre</div>
+    <div class="card-price">5 900 €</div>
+  </div>
+</a>
+<a class="card" href="https://takuukello.fi/kellot/omega-speedmaster-moonwatch/" target="_blank" rel="noopener">
+  <img src="https://takuukello.fi/wp-content/uploads/2026/08/770354419_1599670485284927_7804467671213216793_n.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Moonwatch</div>
+    <div class="card-shop">Takuukello</div>
+    <div class="card-price">5 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://primetimekellot.fi/shop-HaQPU/p/omega-seamaster-aqua-terra-82025" target="_blank" rel="noopener">
+  <img src="https://images.squarespace-cdn.com/content/v1/6781c5faf17ab571c8a06304/68f8eae6-3b9f-45ff-b920-7f14bf302b80/AIM00137+kopio.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Aqua Terra (8/2025)</div>
+    <div class="card-shop">Prime Time Kellot</div>
+    <div class="card-price">5 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/tudor-bb-chrono-79363n-2021.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/41602525-0e2b-41eb-8c44-8843e6e095b3-1-105-c-orig_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor BB41 Chrono 79363N</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">5 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-seamaster-diver-300m-2025.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/smp300m_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Diver 300M</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">5 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.chronoxkellot.fi/kellot/rolex-datejust-36-tuxedo-dial-rsc-04-2025" target="_blank" rel="noopener">
+  <img src="https://cdn.prod.website-files.com/64885586fd89494ca09f1aea/6a9fd331b60aad9be657e639_42304.avif" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Datejust 36 &quot;Tuxedo Dial&quot; (RSC 04/2025)</div>
+    <div class="card-shop">ChronoX</div>
+    <div class="card-price">5 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.chronoxkellot.fi/kellot/omega-speedmaster-moonwatch-professional-42mm-01-2023" target="_blank" rel="noopener">
+  <img src="https://cdn.prod.website-files.com/64885586fd89494ca09f1aea/6a9fcc4940b16538d9478315_43796.avif" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Moonwatch Professional 42mm (01/2023)</div>
+    <div class="card-shop">ChronoX</div>
+    <div class="card-price">5 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/rolex-datejust-26-mm-v-2008/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/03/rolex-0008-3-verkkokauppa-exporttiasetukset-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 26 mm, v. 2008</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">6 150 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/rolex-datejust-26-mm-v-2008/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/03/rolex-0008-3-verkkokauppa-exporttiasetukset-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 26 mm, v. 2008</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">6 150 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/rolex-datejust-26-mm-v-2008/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/03/rolex-0008-3-verkkokauppa-exporttiasetukset-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 26 mm, v. 2008</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">6 150 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/rolex-datejust-36-ref-16013-1" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_7e08ba5db73a4b16a89e05aba7dcebe0~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Datejust 36, (ref. 16013)</div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">6 190 €</div>
+  </div>
+</a>
+<a class="card" href="https://takuukello.fi/kellot/omega-speedmaster-moonwatch-2/" target="_blank" rel="noopener">
+  <img src="https://takuukello.fi/wp-content/uploads/2026/08/778664666_1609324114319564_6003876843558410350_n.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Moonwatch</div>
+    <div class="card-shop">Takuukello</div>
+    <div class="card-price">6 300 €</div>
+  </div>
+</a>
+<a class="card" href="https://primetimekellot.fi/shop-HaQPU/p/omega-speedmaster-racing-62024" target="_blank" rel="noopener">
+  <img src="https://images.squarespace-cdn.com/content/v1/6781c5faf17ab571c8a06304/6c6b6b48-a6cf-4fd9-9f4c-d272c61dc5b2/AIM03810.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Racing (6/2024)</div>
+    <div class="card-shop">Prime Time Kellot</div>
+    <div class="card-price">6 300 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.pirkankello.fi/product/omega-speedmaster-professional-145-022-st-71/" target="_blank" rel="noopener">
+  <img src="https://www.pirkankello.fi/app/uploads/sites/2/2023/08/omega_speedmaster_pro_145022_st71_28.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Professional 145.022 St 71</div>
+    <div class="card-shop">Pirkan Kello</div>
+    <div class="card-price">6 380 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-deville-42453402002001" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/d/e/devilleetu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega DeVille 42453402002001</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">6 400 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/rolex-datejust-36-mm-v-1988/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/12/untitled-0011-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 36 mm, v. 1988</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">6 450 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/rolex-datejust-36-mm-v-1988/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/12/untitled-0011-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 36 mm, v. 1988</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">6 450 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/rolex-datejust-36-mm-v-1988/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/12/untitled-0011-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 36 mm, v. 1988</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">6 450 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-rolex-oyster-perpetual-116000-36mm" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/o/p/opetu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Rolex Oyster Perpetual 116000 36mm</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">6 490 €</div>
+  </div>
+</a>
+<a class="card" href="https://westerback.fi/products/pre-owned-omega-seamaster-planet-ocean-600m-gmt" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0918/9303/9450/files/5594.jpg?v=1776162331" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Seamaster Planet Ocean 600m GMT</div>
+    <div class="card-shop">Westerback</div>
+    <div class="card-price">6 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-planet-ocean-xl-chrono-2023.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/pochrono2023_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Planet Ocean Chrono 45.5</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">6 790 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/tudor-black-bay-chrono-pink-41mm-ref-m79360n" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_d1225e7abf2042209db787d4dd61e916~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor Black Bay Chrono &quot;Pink&quot;, 41mm, (ref. M79360N)</div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">6 890 €</div>
+  </div>
+</a>
+<a class="card" href="https://longitudi.fi/product/omega-speedmaster-moonphase-chronograph-from-2022" target="_blank" rel="noopener">
+  <img src="https://longitudi.fi/wp-content/uploads/2026/08/Omega-Speedmaster-Moonphase-Co-Ax-2022-5.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Moonphase Chronograph from 2022</div>
+    <div class="card-shop">Longitudi</div>
+    <div class="card-price">6 900 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/rolex-datejust-36mm-v-2001/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/07/rolex-0004-11-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 36mm, v. 2001</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">6 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/rolex-datejust-36mm-v-2001/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/07/rolex-0004-11-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 36mm, v. 2001</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">6 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/rolex-datejust-36mm-v-2001/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2026/07/rolex-0004-11-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 36mm, v. 2001</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">6 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-seamaster-planet-ocean-liquid-metal-222-30-42-20-01-001" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/l/i/liquidetu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Seamaster Planet Ocean Liquid Metal 222.30.42.20.01.001</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">6 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-rolex-datejust-16233" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/d/j/djetu_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Rolex Datejust 16233</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">6 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-seamaster-pro-diver-42-sedna-18k-2023.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/acfac100-746a-4d2f-a5a9-b6695867607f-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega SMP42 Sedna18k</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">6 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-air-king-116900-2019.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/393b6154-fac3-496d-b7c8-6b309baa8600-1-105-c_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Air-King 116900</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">6 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.aikarauta.fi/product/23681537/omega-seamaster-planet-ocean" target="_blank" rel="noopener">
+  <img src="https://primary.jwwb.nl/public/g/i/g/temp-cegqzxbtbdinsixadlyp/opo3-standard.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Planet Ocean</div>
+    <div class="card-shop">Aikarauta</div>
+    <div class="card-price">6 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.chronoxkellot.fi/kellot/rolex-explorer-ii-40mm-12-2002-huol-2020-2" target="_blank" rel="noopener">
+  <img src="https://cdn.prod.website-files.com/64885586fd89494ca09f1aea/6a9077d4272e7ada7df52f3d_32174.avif" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Explorer II 40mm (12/2002, Huol. 2020)</div>
+    <div class="card-shop">ChronoX</div>
+    <div class="card-price">6 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-speedmaster-pre-moon-1450012" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/b/o/boksikuvat-22.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Speedmaster Pre-Moon 1450012</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">7 000 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-rolex-datejust-towtone-16233" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/d/j/djetu_2_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-owned Rolex Datejust towtone 16233</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">7 190 €</div>
+  </div>
+</a>
+<a class="card" href="https://longitudi.fi/product/rolex-datejust-lady-ref-69173-from-1997" target="_blank" rel="noopener">
+  <img src="https://longitudi.fi/wp-content/uploads/2026/08/Rolex-Datejust-Lady-69173-1997-5.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Datejust Lady ref. 69173 from 1997</div>
+    <div class="card-shop">Longitudi</div>
+    <div class="card-price">7 200 €</div>
+  </div>
+</a>
+<a class="card" href="https://primetimekellot.fi/shop-HaQPU/p/rolex-explorer-ii-62005" target="_blank" rel="noopener">
+  <img src="https://images.squarespace-cdn.com/content/v1/6781c5faf17ab571c8a06304/d7ea265a-9ce1-46cc-8e8e-1549c557e327/AIM04313.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Explorer II (6/2005)</div>
+    <div class="card-shop">Prime Time Kellot</div>
+    <div class="card-price">7 350 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-speedmaster-57-2024.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/2d37ef3d-6af4-4697-ae62-2c04e3ef5993-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster &#x27;57 Green</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">7 390 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-214270-mk1-2013.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/1b17eba9-4cd5-4d79-a69e-919ccb66907f-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Explorer 1 214270 MK1</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">7 490 €</div>
+  </div>
+</a>
+<a class="card" href="https://longitudi.fi/product/omega-speedmaster-professional-white-from-2026" target="_blank" rel="noopener">
+  <img src="https://longitudi.fi/wp-content/uploads/2026/08/Omega-Speedmaster-Pro-Valkoinen-2026-5.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Professional White from 2026</div>
+    <div class="card-shop">Longitudi</div>
+    <div class="card-price">7 600 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/rolex-oyster-perpetual-41-blue-124300-ra60606/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/06/ra60606_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Oyster Perpetual 41 Blue 124300</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">7 790 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-126000-black.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/126000_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex OP36 126000 Black</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">7 790 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-seamaster-nttd-2021.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/a42ce9f2-48ef-4458-b1b0-1b653c4ab16f-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster NTTD 007</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">7 890 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/tudor-black-bay-41-metas-red-jubilee-52025.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/df33f8a2-0d34-4b28-bb4c-a6403f3cd7dd-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Tudor BB41</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">7 941 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-air-king-126900-2022.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/2138647c-af88-4524-980d-694df41c6d36-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Air-King 126900</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">7 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://voltairekellot.fi/product/rolex-datejust-ii-116334-41-mm/" target="_blank" rel="noopener">
+  <img src="https://voltairekellot.fi/wp-content/uploads/2026/06/9735e90d-c2e6-43a7-9337-c262e7074424.png.webp" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Datejust II – 116334 41 mm</div>
+    <div class="card-shop">Voltaire</div>
+    <div class="card-price">7 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-submariner-16610ln-1991.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/70eb4ec3-d0cc-49a5-8af2-c30c7b8d9518-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Submariner Date 16610LN</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">7 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-explorer-1-124270-2023.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/50840859-cc03-4d9d-8ec8-f49e49363c31-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Explorer 1 124270</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">7 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-explorer-1-214270-mk2-2016.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/214270mk2_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Explorer 1 214270 MK2</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">7 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-omega-speedmaster-31192445101003-dark-side-of-the-moon" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/d/a/darketu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Omega Speedmaster 31192445101003  &quot;Dark side of the moon&quot;</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">8 140 €</div>
+  </div>
+</a>
+<a class="card" href="https://longitudi.fi/product/rolex-oyster-perpetual-41-blue-from-2023" target="_blank" rel="noopener">
+  <img src="https://longitudi.fi/wp-content/uploads/2026/05/Rolex-OP-41-124300-2023-5.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX OYSTER PERPETUAL 41 BLUE FROM 2023</div>
+    <div class="card-shop">Longitudi</div>
+    <div class="card-price">8 200 €</div>
+  </div>
+</a>
+<a class="card" href="https://voltairekellot.fi/product/rolex-submariner-16610/" target="_blank" rel="noopener">
+  <img src="https://voltairekellot.fi/wp-content/uploads/2026/03/rolex-submariner-date-16610.jpg.png" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Submariner 16610</div>
+    <div class="card-shop">Voltaire</div>
+    <div class="card-price">8 200 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.pirkankello.fi/product/omega-seamaster-planet-ocean-6000m-ultra-deep-215-32-46-21-03-001/" target="_blank" rel="noopener">
+  <img src="https://www.pirkankello.fi/app/uploads/sites/2/2026/08/omega-seamaster-planet-ocean-6000m-ultra-deep-215-32-46-21-03-001_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster Planet Ocean 6000M Ultra Deep 215.32.46.21.03.001</div>
+    <div class="card-shop">Pirkan Kello</div>
+    <div class="card-price">8 480 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kiipperi.fi/tuote/rolex-datejust-ii-41-116334/" target="_blank" rel="noopener">
+  <img src="https://www.kiipperi.fi/wp-content/uploads/2026/08/dj2.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Datejust II 41 116334</div>
+    <div class="card-shop">Kiipperi</div>
+    <div class="card-price">8 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-rolex-explorer-ii-216570-polar" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/p/o/polaretu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Rolex Explorer II 216570 Polar</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">8 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/rolex-datejust-34-mm/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/10/untitled-0011-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 34 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">8 600 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/rolex-datejust-34-mm/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/10/untitled-0011-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 34 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">8 600 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/rolex-datejust-34-mm/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/10/untitled-0011-2-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 34 mm</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">8 600 €</div>
+  </div>
+</a>
+<a class="card" href="https://longitudi.fi/product/omega-seamaster-600-plo-prof-166-077-from-1978" target="_blank" rel="noopener">
+  <img src="https://longitudi.fi/wp-content/uploads/2026/06/Omega-Seamaster-600-Plo-Prof-1978-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster 600 Plo-Prof 166.077 from 1978</div>
+    <div class="card-shop">Longitudi</div>
+    <div class="card-price">8 600 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-rolex-milgaus-116400gv" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/m/i/miletu_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Rolex Milgaus  116400GV</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">8 690 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/rolex-oyster-perpetual-41-green-124300-ra60121/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/04/ra60121_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Oyster Perpetual 41 Green 124300</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">8 790 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/en/product/rolex-oyster-perpetual-34-mm-v-2025/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/11/untitled-0013-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Oyster Perpetual 34 mm, v.2025</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">8 850 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/sv/product/rolex-oyster-perpetual-34-mm-v-2025/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/11/untitled-0013-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Oyster Perpetual 34 mm, v.2025</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">8 850 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.holmasto.fi/product/rolex-oyster-perpetual-34-mm-v-2025/" target="_blank" rel="noopener">
+  <img src="https://www.holmasto.fi/app/uploads/2025/11/untitled-0013-scaled.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Oyster Perpetual 34 mm, v.2025</div>
+    <div class="card-shop">Holmasto</div>
+    <div class="card-price">8 850 €</div>
+  </div>
+</a>
+<a class="card" href="https://longitudi.fi/product/18k-omega-constellation-chronometer-1974" target="_blank" rel="noopener">
+  <img src="https://longitudi.fi/wp-content/uploads/2026/02/18k-Omega-Constellation-1974-1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">18k Omega Constellation Chronometer from 1974</div>
+    <div class="card-shop">Longitudi</div>
+    <div class="card-price">8 900 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/rolex-datejust-126300" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/p/r/pre-owned-145.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Rolex Datejust 126300</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">8 900 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-op36-126000-beige-2026.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/126000beige_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex OP36 126000 Beige NEW</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">8 900 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-rolex-datejust-126300" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/s/i/sininen_dj.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Rolex Datejust 126300</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">8 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-216570-black-2017.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/572de324-896d-4f64-9416-f6dfc319ccd2-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Explorer II 216570</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">8 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-dj36-116234-2007.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/315824f5-2512-4ca6-bd52-edcd822bbced-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Datejust 116234 Tuxedo</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">8 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-op41-134300-blue-2025.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/f4482501-b0a2-44a2-92a0-3fcf7633f8ae-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex OP42 134300 Blue</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">8 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.aikajaaarre.fi/product/21905446/rolex-op-datejust-36" target="_blank" rel="noopener">
+  <img src="https://primary.jwwb.nl/public/g/v/j/temp-wbvmzsxgyzvumlklyujn/img_1180-standard.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex op datejust 36</div>
+    <div class="card-shop">Aika &amp; Aarre</div>
+    <div class="card-price">8 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://longitudi.fi/product/omega-seamaster-1000-the-grand-divers-watch-from-year-1980" target="_blank" rel="noopener">
+  <img src="https://longitudi.fi/wp-content/uploads/2026/06/Omega-Seamaster-1000-1980-9.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Seamaster 1000 “The Grand” diver’s watch from year 1980</div>
+    <div class="card-shop">Longitudi</div>
+    <div class="card-price">9 200 €</div>
+  </div>
+</a>
+<a class="card" href="https://rollekellot.fi/kellot/rolex-rolex-submariner-date-16613-rolex-submariner-date-16613-1999" target="_blank" rel="noopener">
+  <img src="https://dolugmpztpeebsxgpbik.supabase.co/storage/v1/object/sign/watch-images/3536a285-4ad2-45fa-b59b-882a8845bd6b.jpeg?token=eyJraWQiOiJmZDMzODczYy1kMDJlLTRmNzktOTNjOC0xNzUwYTAxZGU0YTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ3YXRjaC1pbWFnZXMvMzUzNmEyODUtNGFkMi00NWZhLWI1OWItODgyYTg4NDViZDZiLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg3ODM5MTQzLCJleHAiOjI0MTg1NTkxNDN9.x6S-kxYrgp0EumZxEK3Kg_QMPxTwP4MZmRsuwrm1byI" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Submariner Date 16613</div>
+    <div class="card-shop">Rolle Kellot</div>
+    <div class="card-price">9 300 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kiipperi.fi/tuote/rolex-sea-dweller-deepsea-116660/" target="_blank" rel="noopener">
+  <img src="https://www.kiipperi.fi/wp-content/uploads/2026/06/ds1.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Sea-Dweller Deepsea 116660</div>
+    <div class="card-shop">Kiipperi</div>
+    <div class="card-price">9 350 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.sorkankello.fi/valikoima/rolex-sea-dweller-40-mm" target="_blank" rel="noopener">
+  <img src="https://cdn.prod.website-files.com/63c2a32497dcf44837aea817/68f21a930be0fd90df299e69_s-l1600.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Sea-Dweller</div>
+    <div class="card-shop">Sörkan Kello</div>
+    <div class="card-price">9 350 €</div>
+  </div>
+</a>
+<a class="card" href="https://primetimekellot.fi/shop-HaQPU/p/rolex-datejust-36-palm-motif-unworn-122023" target="_blank" rel="noopener">
+  <img src="https://static1.squarespace.com/static/6781c5faf17ab571c8a06304/6781c934e7895826c3ac794b/6a83885f00c198483eb60b31/1788262804861/" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Datejust 36 &quot;Palm Motif&quot;, unworn (12/2023)</div>
+    <div class="card-shop">Prime Time Kellot</div>
+    <div class="card-price">9 400 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-op41-134300-green-2026.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/22d01d5c-e404-4999-aa87-62a11afdacdb-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex OP41 134300 Green</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">9 450 €</div>
+  </div>
+</a>
+<a class="card" href="https://primetimekellot.fi/shop-HaQPU/p/rolex-oyster-perpetual-pistachio-41-42026" target="_blank" rel="noopener">
+  <img src="https://images.squarespace-cdn.com/content/v1/6781c5faf17ab571c8a06304/f8f61e78-4bd4-40f7-96b5-ffc422553488/OP02593.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Oyster Perpetual Pistachio 41 (4/2026)</div>
+    <div class="card-shop">Prime Time Kellot</div>
+    <div class="card-price">9 600 €</div>
+  </div>
+</a>
+<a class="card" href="https://westerback.fi/products/pre-owned-rolex-op-datejust-31" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0918/9303/9450/files/Rolex_DJ_suora.jpg?v=1737555407" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Rolex OP Datejust 31</div>
+    <div class="card-shop">Westerback</div>
+    <div class="card-price">9 800 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-16622-yacht-master-1999.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/2442e0be-f10a-4c96-aa78-284878ffdb20-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Yacht-Master 16622</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">9 890 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-explorer-ii-216570-polar.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/ae2af07d-e119-427a-8e4f-ecf8b8aae0ef-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Explorer II 216570</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">9 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-speedmaster-moonphase-steel--gold-2022.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/60776274-47d2-4380-872e-4def59d32a13-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Moonphase S&amp;G</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">9 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-116400gv-milgauss-z-blue.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/621c8278-f6e2-4a59-b6c2-d7fa45cfe0cb-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Milgauss 116400GV Z blue</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">9 950 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-126300-mint-green-2025.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/c754fccc-2d8c-49c6-8281-534f60b4e615-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex DJ41 126300 Mint Green</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">9 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-126300-blue-2025.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/5f5d2595-835d-4a59-90d3-1deafc0b1768-1-105-c_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex DJ41 126300 Blue</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">9 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-124273-explorer-1-2021.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/2f358dbe-6496-4ea5-b2e9-c84c64b1ae4f-1-201-a-orig_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Explorer 1 124273</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">9 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/omega-speedmaster-reverse-panda-32026.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/f21bc40c-4c1a-426a-ac7a-c76b73dafe3a-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega Speedmaster Reverse Panda NEW</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">9 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://rollekellot.fi/kellot/rolex-rolex-oyster-perpetual-134300-lavender-rolex-oyster-perpetual-134300-lavender-2026" target="_blank" rel="noopener">
+  <img src="https://dolugmpztpeebsxgpbik.supabase.co/storage/v1/object/sign/watch-images/d2c77248-b8c3-4edf-b0d0-8ad8451d2dcb.jpeg?token=eyJraWQiOiJmZDMzODczYy1kMDJlLTRmNzktOTNjOC0xNzUwYTAxZGU0YTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ3YXRjaC1pbWFnZXMvZDJjNzcyNDgtYjhjMy00ZWRmLWIwZDAtOGFkODQ1MWQyZGNiLmpwZWciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg4OTY0MTk3LCJleHAiOjI0MTk2ODQxOTd9._NzINUaJOK0Ffd3hPsc0UCJoE1rwekUP3o7aQgmwRGI" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Oyster Perpetual 134300 Lavender</div>
+    <div class="card-shop">Rolle Kellot</div>
+    <div class="card-price">10 200 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/rolex-sea-dweller-40mm-16600-ra50503/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2025/05/ra50503_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Sea-Dweller 40mm 16600</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">10 300 €</div>
+  </div>
+</a>
+<a class="card" href="https://gello.fi/watches/rolex-submariner-date-116610ln" target="_blank" rel="noopener">
+  <img src="https://cdn.prod.website-files.com/6654b6bb4fe4a97b149bfb4f/6a9e97f77f6edde3cb0ddb36_sub.JPG" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Submariner Date 116610LN</div>
+    <div class="card-shop">Gello</div>
+    <div class="card-price">10 450 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/rolex-explorer-36-steel-gold-124273-ra60211/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/03/ra60211_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Explorer 36 Steel/Gold 124273</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">10 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/rolex-explorer-ii-42-polar-226570-ra51016/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2025/10/ra51016_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Explorer II 42 Polar 226570</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">10 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-op41-134300-lavender-2026.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/6f814ece-f2db-4a4c-b5b5-c1779e69a9bb-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex OP41 134300 Lavender</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">10 500 €</div>
+  </div>
+</a>
+<a class="card" href="https://ranneaika.com/tuote/rolex-datejust-36-black-126234-ra60406/" target="_blank" rel="noopener">
+  <img src="https://i0.wp.com/ranneaika.com/wp-content/uploads/2026/04/ra60406_1.jpg?fit=1500%2C998&amp;ssl=1" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">ROLEX Datejust 36 Black 126234</div>
+    <div class="card-shop">Ranneaika</div>
+    <div class="card-price">10 700 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kellotupa.fi/product-page/rolex-sea-dweller-sd4k-40mm-ref-116600" target="_blank" rel="noopener">
+  <img src="https://static.wixstatic.com/media/ee8480_1518434505b346bc916f28711c324dcb~mv2.jpeg/v1/fit/w_500,h_500,q_90/file.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Sea-Dweller &quot;SD4K&quot;, 40mm, (ref. 116600)</div>
+    <div class="card-shop">Kellotupa</div>
+    <div class="card-price">10 790 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.pirkankello.fi/product/rolex-submariner-5513/" target="_blank" rel="noopener">
+  <img src="https://www.pirkankello.fi/app/uploads/sites/2/2025/05/rolex-submariner-5513_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Submariner 5513</div>
+    <div class="card-shop">Pirkan Kello</div>
+    <div class="card-price">10 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/rolex-submariner-no-date-114060" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/n/o/nodateetu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre- Owned Rolex Submariner &quot;No date&quot; 114060</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">10 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-datejust-36-126234-black-2026.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/8a13b452-fb7c-47c1-aa35-2595573a976f-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex DJ36 126234 Bright Black</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">10 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kronometri.fi/rolex-116610ln-2016.html" target="_blank" rel="noopener">
+  <img src="https://www.kronometri.fi/uploads/6/5/3/7/65373041/ccf36bec-6cdc-41ff-a3aa-1d149c1f61f4-1-201-a_orig.jpeg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Rolex Submariner 116610LN</div>
+    <div class="card-shop">Kronometri</div>
+    <div class="card-price">10 990 €</div>
+  </div>
+</a>
+<a class="card" href="https://westerback.fi/products/pre-owned-explorer-ii" target="_blank" rel="noopener">
+  <img src="https://cdn.shopify.com/s/files/1/0918/9303/9450/files/rolextestikaksi.jpg?v=1737556556" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Rolex Explorer II</div>
+    <div class="card-shop">Westerback</div>
+    <div class="card-price">11 000 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.kulta-center.com/fi/pre-owned-rolex-explorer-i-278275" target="_blank" rel="noopener">
+  <img src="https://www.kulta-center.com/media/catalog/product/cache/10e5f26466038bf214b547e513bb1ac2/e/x/expetu.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Pre-Owned Rolex Explorer I 124273</div>
+    <div class="card-shop">Kulta-Center</div>
+    <div class="card-price">11 000 €</div>
+  </div>
+</a>
+<a class="card" href="https://www.pirkankello.fi/product/omega-seamaster-mickey-vintage/" target="_blank" rel="noopener">
+  <img src="https://www.pirkankello.fi/app/uploads/sites/2/2022/07/Omega-Mickey_1.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega ”Mickey” Vintage</div>
+    <div class="card-shop">Pirkan Kello</div>
+    <div class="card-price">Pris okänt</div>
+  </div>
+</a>
+<a class="card" href="https://kalevankello.fi/tuote/omega-974-seamaster-diver-300-m-professional-chronometer-chronograph-vuodelta-2006/" target="_blank" rel="noopener">
+  <img src="https://kalevankello.fi/wp-content/uploads/2026/08/Omega-974-4.jpg" alt="" loading="lazy">
+  <div class="card-body">
+    <div class="card-title">Omega-974 Seamaster Diver 300 M Professional Chronometer Chronograph vuodelta 2006</div>
+    <div class="card-shop">Kalevan Kello</div>
+    <div class="card-price">Pris okänt</div>
+  </div>
+</a>
+</div>
+<footer>
+  Genererad automatiskt av <a href="https://github.com/ditt-repo">Klockvakt</a> &middot;
+  körs enligt schemat i .github/workflows/klockvakt.yml
+</footer>
+</body>
+</html>

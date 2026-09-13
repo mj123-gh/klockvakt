@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 import time
 from pathlib import Path
 
+from . import dashboard
 from . import filters as filters_mod
 from . import state as state_mod
 from .notify import send_telegram
@@ -27,6 +29,7 @@ def main() -> None:
     seen = state_mod.load_seen()
     new_seen = set(seen)
     total_new_matches = 0
+    current_matches: list[tuple[dict, str]] = []
 
     for shop in config["shops"]:
         try:
@@ -36,17 +39,23 @@ def main() -> None:
             continue
 
         for item in items:
-            if item["id"] in seen:
-                continue
+            is_new = item["id"] not in seen
             new_seen.add(item["id"])
 
             if filters_mod.matches(item, config["filters"]):
-                send_telegram(item, shop["name"])
-                total_new_matches += 1
+                current_matches.append((item, shop["name"]))
+                if is_new:
+                    send_telegram(item, shop["name"])
+                    total_new_matches += 1
 
         time.sleep(1)  # var artig mellan butiker
 
     state_mod.save_seen(new_seen)
+    dashboard.render(
+        current_matches,
+        config["filters"],
+        repo=os.environ.get("GITHUB_REPOSITORY", ""),
+    )
     print(f"Klart. {total_new_matches} nya träffar som matchade dina filter.")
 
 
