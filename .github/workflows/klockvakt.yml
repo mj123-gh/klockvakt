@@ -2,9 +2,11 @@ name: Klockvakt
 
 on:
   schedule:
-    # Var 3:e timme. Justera efter behov (var inte för aggressiv mot
-    # butikernas servrar).
-    - cron: "0 */3 * * *"
+    # En gång per dygn kl 17:00 finsk tid. GitHub Actions cron körs i UTC,
+    # och Finland byter mellan UTC+2 (vintertid) och UTC+3 (sommartid), så
+    # det behövs två rader för att träffa 17:00 lokal tid året runt:
+    - cron: "0 14 * 3-10 *"      # mar-okt (sommartid, UTC+3) -> 17:00 EEST
+    - cron: "0 15 * 11,12,1,2 *" # nov-feb (vintertid, UTC+2) -> 17:00 EET
   workflow_dispatch: {}  # tillåter manuell körning från GitHub-fliken Actions
 
 permissions:
