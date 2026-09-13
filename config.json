@@ -1,0 +1,162 @@
+{
+  "filters": {
+    "_kommentar": "Byt ut dessa mot dina egna kriterier. brands/keywords_include/keywords_exclude matchar mot titeln (skiftlägesokänsligt, delsträng). Lämna en lista tom = ingen begränsning på den punkten.",
+    "brands": ["Rolex", "Omega", "Tudor"],
+    "keywords_include": [],
+    "keywords_exclude": ["kvarts", "quartz"],
+    "min_price_eur": null,
+    "max_price_eur": 6000
+  },
+  "shops": [
+    {
+      "id": "westerback",
+      "name": "Westerback",
+      "platform": "shopify",
+      "base_url": "https://westerback.fi",
+      "collection_path": "/collections/pre-owned"
+    },
+    {
+      "id": "nordicwatches",
+      "name": "Nordic Watches",
+      "platform": "shopify",
+      "base_url": "https://nordicwatches.fi",
+      "collection_path": "/collections/rannekellot"
+    },
+    {
+      "id": "pirkankello",
+      "name": "Pirkan Kello",
+      "platform": "woocommerce_api",
+      "base_url": "https://www.pirkankello.fi",
+      "category": "arvokellot"
+    },
+    {
+      "id": "ranneaika",
+      "name": "Ranneaika",
+      "platform": "woocommerce_api",
+      "_kommentar": "ranneaika.fi redirectar till ranneaika.com",
+      "base_url": "https://ranneaika.com"
+    },
+    {
+      "id": "holmasto",
+      "name": "Holmasto",
+      "platform": "woocommerce_api",
+      "_kommentar": "Säljer även mynt/smycken/militaria – 'wrist-watches' begränsar till armbandsur.",
+      "base_url": "https://www.holmasto.fi",
+      "category": "wrist-watches"
+    },
+    {
+      "id": "kiipperi",
+      "name": "Kiipperi",
+      "platform": "woocommerce_api",
+      "base_url": "https://www.kiipperi.fi"
+    },
+    {
+      "id": "longitudi",
+      "name": "Longitudi",
+      "platform": "woocommerce_api",
+      "base_url": "https://longitudi.fi"
+    },
+    {
+      "id": "kalevankello",
+      "name": "Kalevan Kello",
+      "platform": "woocommerce_api",
+      "_kommentar": "Säljer även smycken – filtren i config.json sorterar bort det mesta som inte matchar märkena.",
+      "base_url": "https://kalevankello.fi"
+    },
+    {
+      "id": "kellotori",
+      "name": "Kellotori (Ville Pietilä)",
+      "platform": "woocommerce_api",
+      "base_url": "https://kellotori.fi"
+    },
+    {
+      "id": "voltairekellot",
+      "name": "Voltaire",
+      "platform": "woocommerce_api",
+      "base_url": "https://voltairekellot.fi"
+    },
+    {
+      "id": "kulta-center",
+      "name": "Kulta-Center",
+      "platform": "custom_diff",
+      "listing_url": "https://www.kulta-center.com/fi/pre-owned-kellot"
+    },
+    {
+      "id": "kronometri",
+      "name": "Kronometri",
+      "platform": "custom_diff",
+      "_kommentar": "Custom-plattform (troligen Weebly), ingen produkt-API hittad.",
+      "listing_url": "https://kronometri.fi"
+    },
+    {
+      "id": "kellotupa",
+      "name": "Kellotupa",
+      "platform": "custom_diff",
+      "_kommentar": "Wix-butik.",
+      "listing_url": "https://kellotupa.fi"
+    },
+    {
+      "id": "aikajaaarre",
+      "name": "Aika & Aarre",
+      "platform": "custom_diff",
+      "_kommentar": "Webador-butik.",
+      "listing_url": "https://www.aikajaaarre.fi"
+    },
+    {
+      "id": "sorkankello",
+      "name": "Sörkan Kello",
+      "platform": "custom_diff",
+      "_kommentar": "Webflow-butik.",
+      "listing_url": "https://sorkankello.fi"
+    },
+    {
+      "id": "gello",
+      "name": "Gello",
+      "platform": "custom_diff",
+      "_kommentar": "Webflow, verkar sälja via direktkontakt snarare än riktig checkout.",
+      "listing_url": "https://gello.fi"
+    },
+    {
+      "id": "aikarauta",
+      "name": "Aikarauta",
+      "platform": "custom_diff",
+      "_kommentar": "Webador-butik.",
+      "listing_url": "https://aikarauta.fi"
+    },
+    {
+      "id": "chronox",
+      "name": "ChronoX",
+      "platform": "custom_diff",
+      "_kommentar": "Rätt domän är chronoxkellot.fi (inte chronox.fi). Webflow-butik.",
+      "listing_url": "https://chronoxkellot.fi"
+    },
+    {
+      "id": "kelloholvi",
+      "name": "Kelloholvi",
+      "platform": "custom_diff",
+      "_kommentar": "WooCommerce-tema, men produkterna är dolda för Store API:t (catalog_visibility) och sidan renderar via JS – kräver en headless browser för en riktig lösning. Se README.",
+      "listing_url": "https://kelloholvi.fi/kauppa/"
+    },
+    {
+      "id": "takuukello",
+      "name": "Takuukello",
+      "platform": "custom_diff",
+      "_kommentar": "Helt custom-byggd (Breakdance page builder), ingen produkt-API hittad.",
+      "listing_url": "https://takuukello.fi"
+    },
+    {
+      "id": "rollekellot",
+      "name": "Rolle Kellot",
+      "platform": "custom_diff",
+      "_kommentar": "Next.js-app med Supabase-backend. Kan troligen ge en riktig JSON-lista om man hittar deras frontend-anrop via webbläsarens nätverksflik.",
+      "listing_url": "https://rollekellot.fi/kellot"
+    },
+    {
+      "id": "primetimekellot",
+      "name": "Prime Time Kellot",
+      "platform": "custom_diff",
+      "_kommentar": "Squarespace. Har ofta ett dolt ?format=json-API på handelssidor, men rätt sid-URL är inte bekräftad än.",
+      "listing_url": "https://primetimekellot.fi"
+    }
+  ]
+}

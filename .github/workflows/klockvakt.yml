@@ -1,0 +1,36 @@
+name: Klockvakt
+
+on:
+  schedule:
+    # Var 3:e timme. Justera efter behov (var inte för aggressiv mot
+    # butikernas servrar).
+    - cron: "0 */3 * * *"
+  workflow_dispatch: {}  # tillåter manuell körning från GitHub-fliken Actions
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - run: python -m klockvakt.main
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+      - name: Spara uppdaterat state
+        run: |
+          git config user.name "klockvakt-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add state/seen.json
+          git diff --staged --quiet || git commit -m "Uppdatera state [skip ci]"
+          git push
