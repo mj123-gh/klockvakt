@@ -1,10 +1,10 @@
 {
   "filters": {
     "_kommentar": "Byt ut dessa mot dina egna kriterier. brands/keywords_include/keywords_exclude matchar mot titeln (skiftlägesokänsligt, delsträng). Lämna en lista tom = ingen begränsning på den punkten.",
-    "brands": ["Rolex", "Omega", "Tudor"],
+    "brands": ["Omega"],
     "keywords_include": [],
     "keywords_exclude": ["kvarts", "quartz"],
-    "min_price_eur": null,
+    "min_price_eur": 2000,
     "max_price_eur": 11000
   },
   "shops": [
