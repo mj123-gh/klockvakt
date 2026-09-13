@@ -15,6 +15,7 @@ from __future__ import annotations
 import hashlib
 import html
 import re
+import time
 from typing import Any
 
 import requests
@@ -33,12 +34,34 @@ def _get(url: str) -> requests.Response:
     return resp
 
 
+def _get_json(url: str, params: dict[str, Any] | None = None, retries: int = 2) -> requests.Response:
+    """
+    Som _get, men med några omförsök om servern svarar med tom/trasig JSON.
+    Molnservrar (t.ex. GitHub Actions) blir ibland tillfälligt nekade eller
+    får ett tomt svar av en butiks brandvägg – ett par sekunders paus och
+    ett nytt försök löser oftast det utan att hela körningen missar butiken.
+    """
+    last_exc: Exception | None = None
+    for attempt in range(retries + 1):
+        try:
+            resp = requests.get(url, params=params, headers=HEADERS, timeout=TIMEOUT)
+            resp.raise_for_status()
+            resp.json()  # validera att kroppen faktiskt är JSON innan vi litar på den
+            return resp
+        except (requests.RequestException, ValueError) as exc:
+            last_exc = exc
+            if attempt < retries:
+                time.sleep(3)
+    assert last_exc is not None
+    raise last_exc
+
+
 def shopify_products(shop: dict[str, Any]) -> list[dict[str, Any]]:
     """Shopify-butiker exponerar alltid en /products.json på collection-URL:en."""
     base = shop["base_url"].rstrip("/")
     path = shop.get("collection_path", "").rstrip("/")
     url = f"{base}{path}/products.json?limit=250"
-    data = _get(url).json()
+    data = _get_json(url).json()
 
     items = []
     for p in data.get("products", []):
@@ -85,13 +108,7 @@ def woocommerce_api_products(shop: dict[str, Any]) -> list[dict[str, Any]]:
         params: dict[str, Any] = {"per_page": 100, "page": page}
         if category:
             params["category"] = category
-        resp = requests.get(
-            f"{base}/wp-json/wc/store/v1/products",
-            params=params,
-            headers=HEADERS,
-            timeout=TIMEOUT,
-        )
-        resp.raise_for_status()
+        resp = _get_json(f"{base}/wp-json/wc/store/v1/products", params=params)
         batch = resp.json()
         if not batch:
             break
