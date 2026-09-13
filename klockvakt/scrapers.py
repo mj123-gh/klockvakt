@@ -29,10 +29,34 @@ HEADERS = {
 TIMEOUT = 30  # vissa butikers WooCommerce Store API är påfallande långsamt (t.ex. Kalevan Kello)
 
 
-def _get(url: str) -> requests.Response:
-    resp = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
-    resp.raise_for_status()
-    return resp
+def _get(
+    url: str,
+    params: dict[str, Any] | None = None,
+    extra_headers: dict[str, str] | None = None,
+    retries: int = 2,
+) -> requests.Response:
+    """
+    Hämtar en URL med några omförsök om anropet misslyckas (nätverksfel,
+    5xx-status, timeout). Molnservrar (t.ex. GitHub Actions) blir ibland
+    tillfälligt nekade av en butiks brandvägg – en kort paus och ett nytt
+    försök löser oftast det utan att hela körningen missar butiken.
+
+    extra_headers slås ihop med de vanliga HEADERS (t.ex. för API-nycklar
+    som Supabase kräver utöver User-Agent).
+    """
+    headers = {**HEADERS, **(extra_headers or {})}
+    last_exc: Exception | None = None
+    for attempt in range(retries + 1):
+        try:
+            resp = requests.get(url, params=params, headers=headers, timeout=TIMEOUT)
+            resp.raise_for_status()
+            return resp
+        except requests.RequestException as exc:
+            last_exc = exc
+            if attempt < retries:
+                time.sleep(3)
+    assert last_exc is not None
+    raise last_exc
 
 
 def _get_json(
@@ -42,13 +66,10 @@ def _get_json(
     retries: int = 2,
 ) -> requests.Response:
     """
-    Som _get, men med några omförsök om servern svarar med tom/trasig JSON.
-    Molnservrar (t.ex. GitHub Actions) blir ibland tillfälligt nekade eller
-    får ett tomt svar av en butiks brandvägg – ett par sekunders paus och
-    ett nytt försök löser oftast det utan att hela körningen missar butiken.
-
-    extra_headers slås ihop med de vanliga HEADERS (t.ex. för API-nycklar
-    som Supabase kräver utöver User-Agent).
+    Som _get, men verifierar även att svarskroppen faktiskt går att tolka
+    som JSON innan den godkänns – annars räknas försöket som misslyckat och
+    upprepas. Fångar t.ex. ett tomt 200-svar, vilket inte är ett
+    nätverksfel i sig men ändå inte går att lita på.
     """
     headers = {**HEADERS, **(extra_headers or {})}
     last_exc: Exception | None = None
