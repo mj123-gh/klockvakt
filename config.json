@@ -131,32 +131,30 @@
       "listing_url": "https://chronoxkellot.fi"
     },
     {
-      "id": "kelloholvi",
-      "name": "Kelloholvi",
-      "platform": "custom_diff",
-      "_kommentar": "WooCommerce-tema, men produkterna är dolda för Store API:t (catalog_visibility) och sidan renderar via JS – kräver en headless browser för en riktig lösning. Se README.",
-      "listing_url": "https://kelloholvi.fi/kauppa/"
-    },
-    {
       "id": "takuukello",
       "name": "Takuukello",
-      "platform": "custom_diff",
-      "_kommentar": "Helt custom-byggd (Breakdance page builder), ingen produkt-API hittad.",
+      "platform": "takuukello",
+      "_kommentar": "Egen skrapare - Breakdance page builder, statisk HTML på startsidan.",
       "listing_url": "https://takuukello.fi"
     },
     {
       "id": "rollekellot",
       "name": "Rolle Kellot",
-      "platform": "custom_diff",
-      "_kommentar": "Next.js-app med Supabase-backend. Kan troligen ge en riktig JSON-lista om man hittar deras frontend-anrop via webbläsarens nätverksflik.",
-      "listing_url": "https://rollekellot.fi/kellot"
+      "platform": "supabase",
+      "_kommentar": "Egen skrapare - frågar samma publika Supabase-API som sidan själv använder (nyckeln är den publika 'anon'-nyckeln ur deras JS-bundle, inte hemlig).",
+      "base_url": "https://rollekellot.fi",
+      "supabase_url": "https://dolugmpztpeebsxgpbik.supabase.co",
+      "supabase_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvbHVnbXB6dHBlZWJzeGdwYmlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMzU3MzEsImV4cCI6MjA5NjYxMTczMX0.10TYV1PxnrREZL9jKDe0Qv_C6fLu-xU0fuJd2QbCuoY",
+      "table": "watches",
+      "product_path": "/kellot"
     },
     {
       "id": "primetimekellot",
       "name": "Prime Time Kellot",
-      "platform": "custom_diff",
-      "_kommentar": "Squarespace. Har ofta ett dolt ?format=json-API på handelssidor, men rätt sid-URL är inte bekräftad än.",
-      "listing_url": "https://primetimekellot.fi"
+      "platform": "squarespace",
+      "_kommentar": "Egen skrapare - produktsamlingens riktiga URL (hittad via sitemap.xml, skiftlägeskänslig).",
+      "base_url": "https://primetimekellot.fi",
+      "listing_path": "/shop-HaQPU"
     }
   ]
 }

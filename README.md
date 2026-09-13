@@ -8,15 +8,17 @@ nyckelord).
 
 Alla 27 handlare från [Kellofoorumis lista](https://kellofoorumi.fi/uutiset/kaytettyjen-kellojen-kauppiaat-suomessa/)
 har gåtts igenom och verifierats direkt mot deras servrar. 21 butiker är
-konfigurerade och testkörda (`python -m klockvakt.main`, två körningar för
-att bekräfta att dedup fungerar) – 166 träffar första körningen, 0 andra
-körningen, inga krascher.
+konfigurerade och testkörda (`python -m klockvakt.main`, flera körningar för
+att bekräfta att dedup fungerar), inga krascher.
 
 | Plattform | Antal | Hur det funkar |
 |---|---|---|
 | `shopify` | 2 | Läser butikens `/products.json` – stabilt, ingen CSS inblandad |
-| `woocommerce_api` | 8 | Läser WooCommerce **Store API** (`/wp-json/wc/store/v1/products`) – strukturerad JSON istället för att gissa CSS-klasser. Mycket stabilare än ren HTML-scraping eftersom temat kan bytas utan att skraparen går sönder |
-| `custom_diff` | 11 | Stopgap – larmar bara "sidan ändrades", inte vad. Se avsnittet nedan om vilka som är värda att bygga ut |
+| `woocommerce_api` | 8 | Läser WooCommerce **Store API** (`/wp-json/wc/store/v1/products`) – strukturerad JSON istället för att gissa CSS-klasser |
+| `takuukello` | 1 | Egen skrapare – statisk HTML (Breakdance page builder) |
+| `supabase` | 1 | Egen skrapare (Rolle Kellot) – frågar samma publika Supabase-API som sidan själv använder |
+| `squarespace` | 1 | Egen skrapare (Prime Time Kellot) – Squarespaces `?format=json`-API |
+| `custom_diff` | 8 | Stopgap – larmar bara "sidan ändrades", inte vad |
 
 ### Butiker som INTE är medtagna
 
@@ -24,37 +26,24 @@ körningen, inga krascher.
 |---|---|
 | Kellokonttori, Kelloneuvos, Helsingin Kello ja Kulta | Har redan egen "hakuvahti"/e-postbevakning inbyggd på sajten – prenumerera direkt hos dem istället, då slipper du underhålla en skrapare |
 | Timepiece Finland, Second Time | Säljer bara via Instagram – går inte att bevaka programmatiskt utan inloggning, och bryter mot Instagrams användarvillkor |
+| **Kelloholvi** | Sidans "butik" är i praktiken en inbäddad Instagram-flödes-widget (Smash Balloon-pluginet, hittades i sidans källkod) – de riktiga WooCommerce-produkterna finns men är satta till dold katalogsynlighet. Samma princip som Instagram-only-butikerna ovan: går inte att bevaka programmatiskt på ett sätt som känns rimligt |
 | Oulun Arvokello | Har lagt ner sin kello-verksamhet (sidan bekräftar det explicit) |
 
-### `custom_diff`-butiker värda att bygga ut vidare
+### Custom-plattformar utan egen parser (kvar som `custom_diff`)
 
-De flesta av dessa kräver mer jobb än en enkel CSS-fix eftersom de inte
-exponerar någon strukturerad data:
-
-- **Kelloholvi** – kör WooCommerce-tema, men produkterna är satta till
-  `catalog_visibility: hidden` så Store API:t visar bara 1 av ~90 objekt,
-  och sidan renderar listan via JS. Kräver en headless browser (t.ex.
-  Playwright) för en riktig lösning.
-- **Takuukello** – helt custom-byggd med Breakdance page builder, ingen
-  produkt-API hittad. Går att bygga en riktig parser mot
-  `article.bde-loop-item` / `a.bde-container-link` om det är värt besväret.
-- **Rolle Kellot** – Next.js-app med Supabase-backend. Öppna DevTools →
-  Network på `rollekellot.fi/kellot` för att hitta deras faktiska
-  data-anrop (troligen ett Supabase REST-anrop med publik anon-key) – då
-  går det säkert att bygga en riktig JSON-baserad parser.
-- **Prime Time Kellot** – Squarespace, som ofta har ett dolt
-  `?format=json` på handelssidor. Rätt sid-URL för butiken är inte
-  bekräftad än.
-- Kronometri, Kellotupa, Aika & Aarre, Sörkan Kello, Gello, Aikarauta,
-  ChronoX, Kulta-Center – custom-plattformar (Weebly/Wix/Webador/Webflow)
-  utan uppenbar strukturerad data. `custom_diff` fungerar men larmar bara
-  "något ändrades".
+Kronometri, Kellotupa, Aika & Aarre, Sörkan Kello, Gello, Aikarauta, ChronoX,
+Kulta-Center – inget uppenbart strukturerat API hittades vid genomgången
+(Weebly/Wix/Webador/Webflow utan publikt API). Går att undersöka djupare
+efter samma metod som gav resultat för Rolle Kellot/Prime Time Kellot:
+kolla sidans källkod och nätverksflik i webbläsarens DevTools efter
+JSON-anrop, sitemap.xml för produktlänkar, eller `?format=json` för
+Squarespace-sajter.
 
 ## Så funkar det
 
 - `config.json` – lista över butiker (`platform`: `shopify` /
-  `woocommerce_api` / `woocommerce` / `custom_diff`) samt dina
-  filterkriterier.
+  `woocommerce_api` / `woocommerce` / `takuukello` / `supabase` /
+  `squarespace` / `custom_diff`) samt dina filterkriterier.
 - `klockvakt/scrapers.py` – en funktion per plattformstyp.
 - `klockvakt/filters.py` – matchar mot märke/pris/nyckelord.
 - `klockvakt/state.py` – kommer ihåg vilka annonser som redan är sedda
@@ -104,18 +93,19 @@ för att se att inget dubbelrapporteras.
 
 ## Nästa steg
 
-1. Bygg riktiga parsers för de `custom_diff`-butiker som är mest
-   intressanta för dig (se prioriteringen ovan – Kelloholvi, Takuukello,
-   Rolle Kellot och Prime Time Kellot har alla en trolig väg till
-   strukturerad data).
-2. Lägg till felnotifiering till dig själv (t.ex. ett separat
+1. Skicka med bild i Telegram-meddelandet (`image`-fältet samlas redan in
+   men används inte av `notify.py` ännu).
+2. Prisfall-notis på redan sedda klockor, inte bara helt nya objekt.
+3. Lägg till felnotifiering till dig själv (t.ex. ett separat
    Telegram-meddelande) om en skrapare börjar ge 0 träffar flera körningar
    i rad – tecken på att sajten bytt struktur.
-3. Håll ett öga på Kalevan Kellos svarstider – deras WooCommerce Store API
+4. Håll ett öga på Kalevan Kellos svarstider – deras WooCommerce Store API
    är påfallande långsamt (~20 s per sida med 100 objekt) och kan ibland
    timeouta; det är redan hanterat (en trasig/långsam butik stoppar inte de
    andra), men om det blir ett återkommande problem kan sidstorleken sänkas
    från 100 till t.ex. 50.
+5. Undersök resterande `custom_diff`-butiker efter samma metod som gav
+   resultat för Rolle Kellot/Prime Time Kellot (se ovan).
 
 ## Kända begränsningar
 

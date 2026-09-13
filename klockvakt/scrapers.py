@@ -34,17 +34,26 @@ def _get(url: str) -> requests.Response:
     return resp
 
 
-def _get_json(url: str, params: dict[str, Any] | None = None, retries: int = 2) -> requests.Response:
+def _get_json(
+    url: str,
+    params: dict[str, Any] | None = None,
+    extra_headers: dict[str, str] | None = None,
+    retries: int = 2,
+) -> requests.Response:
     """
     Som _get, men med några omförsök om servern svarar med tom/trasig JSON.
     Molnservrar (t.ex. GitHub Actions) blir ibland tillfälligt nekade eller
     får ett tomt svar av en butiks brandvägg – ett par sekunders paus och
     ett nytt försök löser oftast det utan att hela körningen missar butiken.
+
+    extra_headers slås ihop med de vanliga HEADERS (t.ex. för API-nycklar
+    som Supabase kräver utöver User-Agent).
     """
+    headers = {**HEADERS, **(extra_headers or {})}
     last_exc: Exception | None = None
     for attempt in range(retries + 1):
         try:
-            resp = requests.get(url, params=params, headers=HEADERS, timeout=TIMEOUT)
+            resp = requests.get(url, params=params, headers=headers, timeout=TIMEOUT)
             resp.raise_for_status()
             resp.json()  # validera att kroppen faktiskt är JSON innan vi litar på den
             return resp
@@ -196,6 +205,166 @@ def woocommerce_products(shop: dict[str, Any]) -> list[dict[str, Any]]:
     return items
 
 
+def takuukello_products(shop: dict[str, Any]) -> list[dict[str, Any]]:
+    """
+    Takuukello är byggd med Breakdance page builder (ingen WooCommerce-API
+    tillgänglig) - men produktkorten renderas som vanlig statisk HTML direkt
+    på startsidan, så en CSS-baserad skrapare fungerar fint utan JS-rendering.
+    Verifierat manuellt: <article class="bde-loop-item"> per klocka, med
+    titel + "Hinta: X €" som två separata <h1 class="bde-heading">.
+    """
+    listing_url = shop["listing_url"]
+    soup = BeautifulSoup(_get(listing_url).text, "html.parser")
+
+    items: list[dict[str, Any]] = []
+    for card in soup.select("article.bde-loop-item"):
+        link_el = card.select_one("a.bde-container-link")
+        if not link_el or not link_el.get("href"):
+            continue
+        product_url = link_el["href"]
+
+        title_el = link_el.select_one("h1")
+        title = html.unescape(title_el.get_text(strip=True)) if title_el else ""
+
+        price = None
+        for heading in card.select("h1.bde-heading"):
+            text = heading.get_text(strip=True)
+            if text.lower().startswith("hinta"):
+                price = _parse_price(text)
+                break
+
+        img_el = card.select_one("img.breakdance-image-object")
+        image = img_el.get("src") if img_el else None
+
+        items.append(
+            {
+                "id": f"{shop['id']}:{product_url}",
+                "title": title,
+                "url": product_url,
+                "price_eur": price,
+                "image": image,
+            }
+        )
+    return items
+
+
+def supabase_products(shop: dict[str, Any]) -> list[dict[str, Any]]:
+    """
+    Generisk skrapare för butiker byggda ovanpå Supabase (Next.js/Vite-appar
+    som frågar Supabases publika REST-API direkt från webbläsaren). Kräver
+    tre fält i config.json:
+        supabase_url   - t.ex. https://xxxxx.supabase.co
+        supabase_key   - den publika "anon"-nyckeln (samma som webbläsaren
+                          använder - inte hemlig, ligger i sajtens egen
+                          JS-bundle, men skriv gärna en kommentar om varifrån
+                          den hittades ifall den behöver bytas senare)
+        table          - tabellnamnet, t.ex. "watches"
+
+    Verifierat mot Rolle Kellot: nyckeln och tabellnamnet hittades genom att
+    leta i deras publika JS-bundlar (samma anrop som sidan själv gör, inget
+    inloggningsskydd kringgås).
+    """
+    base = shop["supabase_url"].rstrip("/")
+    key = shop["supabase_key"]
+    table = shop["table"]
+    site_base = shop["base_url"].rstrip("/")
+    product_path = shop.get("product_path", "/kellot")
+
+    resp = _get_json(
+        f"{base}/rest/v1/{table}",
+        params={"select": "*"},
+        extra_headers={"apikey": key, "Authorization": f"Bearer {key}"},
+    )
+    rows = resp.json()
+
+    items: list[dict[str, Any]] = []
+    for row in rows:
+        if str(row.get("status", "")).lower() == "sold":
+            continue
+        price = None
+        raw_price = row.get("price")
+        if raw_price:
+            try:
+                price = float(raw_price)
+            except (TypeError, ValueError):
+                price = None
+        image = row.get("image_url")
+        if image and image.startswith("/"):
+            image = f"{site_base}{image}"
+        slug = row.get("slug") or row.get("id")
+        brand = str(row.get("brand") or "").strip()
+        model = str(row.get("model") or "").strip()
+        # Modellfältet innehåller ibland redan märket (inkonsekvent data i
+        # deras databas) - undvik "Rolex Rolex Submariner ...".
+        if brand and model.lower().startswith(brand.lower()):
+            title = model
+        else:
+            title = " ".join(part for part in (brand, model) if part)
+        title = title or str(row.get("id"))
+        items.append(
+            {
+                "id": f"{shop['id']}:{row.get('id')}",
+                "title": html.unescape(title),
+                "url": f"{site_base}{product_path}/{slug}",
+                "price_eur": price,
+                "image": image,
+            }
+        )
+    return items
+
+
+def squarespace_products(shop: dict[str, Any]) -> list[dict[str, Any]]:
+    """
+    Squarespace-butiker exponerar sina sidor som JSON via ?format=json.
+    En "Products"-samlingssida ger en "items"-lista med alla produkter -
+    inklusive sålda/slutsålda och ibland kvarglömda mall-placeholders, som
+    filtreras bort nedan.
+
+    "listing_path" i config.json är sökvägen till produktsamlingen (kolla
+    URL:en i sitemap.xml, t.ex. /shop-HaQPU - inte alltid samma som menyns
+    synliga länk).
+    """
+    base = shop["base_url"].rstrip("/")
+    listing_path = shop["listing_path"]
+
+    resp = _get_json(f"{base}{listing_path}", params={"format": "json"})
+    data = resp.json()
+
+    items: list[dict[str, Any]] = []
+    for it in data.get("items", []):
+        title = (it.get("title") or "").strip()
+        # Kvarglömda Squarespace-mallprodukter (aldrig riktiga kellor).
+        if not title or title.lower() == "product name":
+            continue
+
+        variants = it.get("variants") or []
+        available = any(
+            v.get("unlimited") or (v.get("qtyInStock") or 0) > 0 for v in variants
+        )
+        if not available:
+            continue
+
+        price = None
+        if variants:
+            price_money = variants[0].get("priceMoney") or {}
+            try:
+                price = float(price_money.get("value"))
+            except (TypeError, ValueError):
+                price = None
+
+        full_url = it.get("fullUrl", "")
+        items.append(
+            {
+                "id": f"{shop['id']}:{it.get('id')}",
+                "title": html.unescape(title),
+                "url": f"{base}{full_url}",
+                "price_eur": price,
+                "image": it.get("assetUrl"),
+            }
+        )
+    return items
+
+
 def custom_diff(shop: dict[str, Any]) -> list[dict[str, Any]]:
     """Stopgap: larma bara att sidan ändrats, utan att veta exakt vad."""
     page_text = _get(shop["listing_url"]).text
@@ -213,7 +382,9 @@ def custom_diff(shop: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _parse_price(text: str) -> float | None:
     # Plockar ut t.ex. "1 234,50 €" eller "1234.50" ur en textsträng.
-    match = re.search(r"[\d]{1,3}(?:[ \u00a0.]?\d{3})*(?:[.,]\d{2})?", text)
+    match = re.search(
+        r"\d{1,3}(?:[ \u00a0.]\d{3})+(?:[.,]\d{2})?|\d+(?:[.,]\d{2})?", text
+    )
     if not match:
         return None
     raw = match.group(0).replace(" ", "").replace("\u00a0", "")
@@ -231,6 +402,9 @@ SCRAPERS = {
     "shopify": shopify_products,
     "woocommerce_api": woocommerce_api_products,
     "woocommerce": woocommerce_products,
+    "takuukello": takuukello_products,
+    "supabase": supabase_products,
+    "squarespace": squarespace_products,
     "custom_diff": custom_diff,
 }
 
