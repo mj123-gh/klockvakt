@@ -9,7 +9,10 @@ STATE_PATH = Path(__file__).resolve().parent.parent / "state" / "seen.json"
 def load_seen() -> set[str]:
     if not STATE_PATH.exists():
         return set()
-    with STATE_PATH.open("r", encoding="utf-8") as f:
+    # utf-8-sig tolererar en BOM i filens början (t.ex. om filen råkat sparas
+    # med Anteckningar eller PowerShells Set-Content, som lägger till en) men
+    # fungerar precis lika bra på filer utan BOM.
+    with STATE_PATH.open("r", encoding="utf-8-sig") as f:
         return set(json.load(f))
 
 
