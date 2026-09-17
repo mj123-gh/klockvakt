@@ -4,6 +4,7 @@ import json
 import os
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 from . import dashboard
@@ -27,9 +28,10 @@ def main() -> None:
         config = json.load(f)
 
     seen = state_mod.load_seen()
-    new_seen = set(seen)
+    new_seen = dict(seen)
+    now_iso = datetime.now(timezone.utc).isoformat()
     total_new_matches = 0
-    current_matches: list[tuple[dict, str]] = []
+    current_matches: list[tuple[dict, str, str]] = []
 
     for shop in config["shops"]:
         try:
@@ -40,10 +42,12 @@ def main() -> None:
 
         for item in items:
             is_new = item["id"] not in seen
-            new_seen.add(item["id"])
+            if is_new:
+                new_seen[item["id"]] = now_iso
 
             if filters_mod.matches(item, config["filters"]):
-                current_matches.append((item, shop["name"]))
+                first_seen = new_seen[item["id"]]
+                current_matches.append((item, shop["name"], first_seen))
                 if is_new:
                     send_telegram(item, shop["name"])
                     total_new_matches += 1

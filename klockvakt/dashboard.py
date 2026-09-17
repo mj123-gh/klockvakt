@@ -185,8 +185,15 @@ def _format_filters(filters: dict[str, Any]) -> str:
     return " &middot; ".join(parts) if parts else "Inga filter satta"
 
 
+def _first_seen_epoch(first_seen: str) -> float:
+    try:
+        return datetime.fromisoformat(first_seen).timestamp()
+    except ValueError:
+        return 0.0
+
+
 def render(
-    matches: list[tuple[dict[str, Any], str]],
+    matches: list[tuple[dict[str, Any], str, str]],
     filters: dict[str, Any],
     repo: str = "",
     schedule_text: str = "enligt schemat i .github/workflows/klockvakt.yml",
@@ -194,16 +201,23 @@ def render(
     """
     Skriver docs/index.html - en statisk dashboard över alla objekt som
     matchar filtren i config.json i den senaste körningen. "matches" är en
-    lista av (item, shop_name)-par. Sidan är helt fristående (ingen extern
-    JS/CSS), redo att servas direkt av GitHub Pages från /docs.
+    lista av (item, shop_name, first_seen_iso)-tripplar, nyast överst
+    (därefter billigast överst som tie-breaker). Sidan är helt fristående
+    (ingen extern JS/CSS), redo att servas direkt av GitHub Pages från
+    /docs.
     """
     sorted_matches = sorted(
-        matches, key=lambda pair: (pair[0].get("price_eur") is None, pair[0].get("price_eur") or 0)
+        matches,
+        key=lambda t: (
+            -_first_seen_epoch(t[2]),
+            t[0].get("price_eur") is None,
+            t[0].get("price_eur") or 0,
+        ),
     )
 
     if sorted_matches:
         cards = []
-        for item, shop_name in sorted_matches:
+        for item, shop_name, _first_seen in sorted_matches:
             image_url = item.get("image")
             if image_url:
                 image_html = f'<img src="{html_mod.escape(image_url)}" alt="" loading="lazy">'
