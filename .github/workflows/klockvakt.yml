@@ -4,9 +4,13 @@ on:
   schedule:
     # En gång per dygn kl 17:00 finsk tid. GitHub Actions cron körs i UTC,
     # och Finland byter mellan UTC+2 (vintertid) och UTC+3 (sommartid), så
-    # det behövs två rader för att träffa 17:00 lokal tid året runt:
-    - cron: "0 14 * 3-10 *"      # mar-okt (sommartid, UTC+3) -> 17:00 EEST
-    - cron: "0 15 * 11,12,1,2 *" # nov-feb (vintertid, UTC+2) -> 17:00 EET
+    # det behövs två rader för att träffa 17:00 lokal tid året runt.
+    # Minut 37 i stället för hel timme: GitHub köar schemalagda körningar
+    # hårdast vid jämna timmar, och sedan mitten av oktober har körningar
+    # startat 3-9 timmar sent. Schemat är därför bara en reserv; den
+    # egentliga starten kl 17 sker med "gh workflow run" från en dator.
+    - cron: "37 13 * 3-10 *"      # mar-okt (sommartid, UTC+3) -> 16:37 EEST
+    - cron: "37 14 * 11,12,1,2 *" # nov-feb (vintertid, UTC+2) -> 16:37 EET
   workflow_dispatch: {}  # tillåter manuell körning från GitHub-fliken Actions
 
 permissions:
